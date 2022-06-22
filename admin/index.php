@@ -11,6 +11,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
+    <link rel="shortcut icon" href="../assets/images/mbr-1.png" type="image/x-icon">
     <!--Importing icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
@@ -80,7 +81,7 @@
 
     <!--Footer-->
     <footer id="footer">
-        <p id="copyright">Admin Copyright &copy;
+        <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
                 document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))

@@ -13,6 +13,7 @@
 
     <!--Importing icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="../assets/images/mbr-1.png" type="image/x-icon">
 
     <!--Importing custom styles-->
     <link href="../css/styles.css" rel="stylesheet" type="text/css">
@@ -208,7 +209,7 @@
 
     <!--Footer-->
     <footer id="footer">
-        <p id="copyright">Admin Copyright &copy;
+        <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
                 document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
