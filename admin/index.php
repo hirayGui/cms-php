@@ -1,3 +1,32 @@
+<?php
+include_once '../config/Database.php';
+include_once '../class/User.php';
+
+$database = new Database();
+$db = $database->getConnection();
+
+$user = new User($db);
+
+//verifying if user is logged in
+if ($user->loggedIn()) {
+    header('Location: home.php');
+}
+
+$loginMessage = '';
+if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+    $user->email = $_POST['email'];
+    $user->password = $_POST['password'];
+    if ($user->login()) {
+        header('Location: home.php');
+    } else {
+        $loginMessage = 'Login inválido! Por favor, tente novamente.';
+    }
+} else {
+    $loginMessage = 'Favor preencher todos os campos!';
+}
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
 
@@ -24,7 +53,8 @@
     <!--Navbar-->
     <nav class="navbar navbar-expand-md navbar-default">
         <a class="navbar-brand" href="#">Painel de Controle</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!--navbar-toggler-->
@@ -56,18 +86,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <form action="home.php" id="login" class="well">
+                    <?php if ($loginMessage != '') { ?>
+                    <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                <?php echo $loginMessage; ?>
+                            </div>
+                            <!--toast-body-->
+                            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                        </div>
+                        <!--d-flex-->
+                    </div>
+                    <!--toast-->
+                    <?php } ?>
+                    <form method="POST" id="login" class="well" action="" role="form">
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="text" class="form-control" placeholder="Insira seu email" name="email">
+                            <input required type="text" class="form-control" placeholder="Insira seu email" name="email"
+                                value='<?php if (!empty($_POST["email"])) {
+                                                                                                                                    echo $_POST["email"];
+                                                                                                                                } ?>'>
                         </div>
                         <!--form-group-->
                         <div class="form-group">
                             <label>Senha</label>
-                            <input type="password" class="form-control" placeholder="Insira sua senha" name="password">
+                            <input required type="password" class="form-control" placeholder="Insira sua senha"
+                                name="password"
+                                value='<?php if (!empty($_POST["password"])) {
+                                                                                                                                            echo $_POST["password"];
+                                                                                                                                        } ?>'>
                         </div>
                         <!--form-group-->
-                        <button type="submit" class="btn btn-default btn-block">Login</button>
+                        <input type="submit" class="btn btn-default btn-block" name="login" value="Login">
+
                     </form>
                     <!--login-->
                 </div>
@@ -79,18 +131,21 @@
     </section>
     <!--main-->
 
+
     <!--Footer-->
     <footer id="footer">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
-                document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
             </script>
         </p>
     </footer>
 
     <!--Importing scripts-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>

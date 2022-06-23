@@ -2,7 +2,7 @@
 
 class User
 {
-    private $userTable = 'user';
+    private $userTable = 'tb_users';
     private $conn;
 
     public function __construct($db)
@@ -21,7 +21,7 @@ class User
             $result = $stmt->get_result();
             //after verify if user exists in the db, function store its data to session
             if ($result->num_rows > 0) {
-                $user = $result->fecth_assoc();
+                $user = $result->fetch_assoc();
                 $_SESSION['userid'] = $user['id_user'];
                 $_SESSION['role'] = $user['ds_role'];
                 $_SESSION['name'] = $user['ds_name'];
