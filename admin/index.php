@@ -87,38 +87,30 @@ if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['passwor
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <?php if ($loginMessage != '') { ?>
-                    <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="d-flex">
-                            <div class="toast-body">
-                                <?php echo $loginMessage; ?>
-                            </div>
-                            <!--toast-body-->
-                            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
-                                aria-label="Close"></button>
-                        </div>
-                        <!--d-flex-->
+                    <div id="login-alert" class="alert alert-danger col-sm-12">
+                        <?php echo $loginMessage; ?>
                     </div>
-                    <!--toast-->
+                    <!--login-alert>
                     <?php } ?>
                     <form method="POST" id="login" class="well" action="" role="form">
                         <div class="form-group">
                             <label>Email</label>
                             <input required type="text" class="form-control" placeholder="Insira seu email" name="email"
                                 value='<?php if (!empty($_POST["email"])) {
-                                                                                                                                    echo $_POST["email"];
-                                                                                                                                } ?>'>
+                                            echo $_POST["email"];
+                                        } ?>'>
                         </div>
                         <!--form-group-->
-                        <div class="form-group">
-                            <label>Senha</label>
-                            <input required type="password" class="form-control" placeholder="Insira sua senha"
-                                name="password"
-                                value='<?php if (!empty($_POST["password"])) {
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input required type="password" class="form-control" placeholder="Insira sua senha"
+                            name="password"
+                            value='<?php if (!empty($_POST["password"])) {
                                                                                                                                             echo $_POST["password"];
                                                                                                                                         } ?>'>
-                        </div>
-                        <!--form-group-->
-                        <input type="submit" class="btn btn-default btn-block" name="login" value="Login">
+                    </div>
+                    <!--form-group-->
+                    <input type="submit" class="btn btn-default btn-block" name="login" value="Login">
 
                     </form>
                     <!--login-->
