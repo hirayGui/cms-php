@@ -49,17 +49,11 @@ if (!$user->loggedIn()) {
                 <!--col-md-10-->
                 <div class="col-md-2">
                     <div class="dropdown create">
-                        <!--Actions menu-->
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-toggle="dropdown" aria-expanded="false">
-                            Adicionar
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary main-color-bg" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i> Criar novo post
                         </button>
-                        <!--btn dropdown-toggle-->
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="create.php">Adicionar post</a></li>
-                            <li><a class="dropdown-item" href="../users/create.php">Adicionar usuário</a></li>
-                        </ul>
-                        <!--dropdown-menu-->
                     </div>
                     <!--dropdown-->
                 </div>

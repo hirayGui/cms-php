@@ -47,23 +47,6 @@ if (!$user->loggedIn()) {
                     <h1><i class="bi bi-gear-fill"></i>Home <small>Gerencie seu site</small></h1>
                 </div>
                 <!--col-md-10-->
-                <div class="col-md-2">
-                    <div class="dropdown create">
-                        <!--Actions menu-->
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-toggle="dropdown" aria-expanded="false">
-                            Adicionar
-                        </button>
-                        <!--btn dropdown-toggle-->
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="posts/create.php">Adicionar post</a></li>
-                            <li><a class="dropdown-item" href="users/create.php">Adicionar usuário</a></li>
-                        </ul>
-                        <!--dropdown-menu-->
-                    </div>
-                    <!--dropdown-->
-                </div>
-                <!--col-md-2-->
             </div>
             <!--row-->
         </div>
