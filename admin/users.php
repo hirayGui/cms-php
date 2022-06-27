@@ -11,6 +11,9 @@ $user = new User($db);
 if (!$user->loggedIn()) {
     header('Location: index.php');
 }
+
+$result = $user->listUsers();
+$usersCount = mysqli_num_rows($result);
 ?>
 
 <!doctype html>
@@ -28,10 +31,12 @@ if (!$user->loggedIn()) {
 
     <!--Importing icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="shortcut icon" href="../../assets/images/mbr-1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/images/mbr-1.png" type="image/x-icon">
 
     <!--Importing custom styles-->
     <link href="../css/styles.css" rel="stylesheet" type="text/css">
+
+
 </head>
 
 <body>
@@ -48,20 +53,15 @@ if (!$user->loggedIn()) {
                 </div>
                 <!--col-md-10-->
                 <div class="col-md-2">
-                    <div class="dropdown create">
-                        <!--Actions menu-->
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-toggle="dropdown" aria-expanded="false">
-                            Adicionar
+                    <div class="create">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary main-color-bg" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i> Criar novo usuário
                         </button>
-                        <!--btn dropdown-toggle-->
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="../posts/create.php">Adicionar post</a></li>
-                            <li><a class="dropdown-item" href="create.php">Adicionar usuário</a></li>
-                        </ul>
-                        <!--dropdown-menu-->
+                        <!--btn btn-primary-->
                     </div>
-                    <!--dropdown-->
+                    <!--create-->
                 </div>
                 <!--col-md-2-->
             </div>
@@ -96,10 +96,10 @@ if (!$user->loggedIn()) {
                         <a href="pages.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-file-earmark"></i> Páginas <span class="badge">3</span></a>
                         <a href="posts.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
+                                class="bi bi-newspaper"></i> Posts <span class="badge">3</span></a>
                         <a href="users.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span
-                                class="badge">2</span></a>
+                                class="badge"><?php echo $usersCount; ?></span></a>
                     </div>
                     <!--list-group-->
 
@@ -131,38 +131,39 @@ if (!$user->loggedIn()) {
                             </div>
                             <!--row-->
                             <br>
+                            <?php if (mysqli_num_rows($result)) { ?>
                             <table class="table table-striped table-hover">
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td>Marcelo</td>
-                                    <td>Mar@celo.com</td>
-                                    <td>Ativo</td>
-                                    <td><a href="edit.php" class="btn btn-default">Editar</a>
-                                        <a href="#" class="btn btn-danger">Excluir</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Anderson</td>
-                                    <td>Ander@son.com</td>
-                                    <td>Inativo</td>
-                                    <td><a href="edit.php" class="btn btn-default">Editar</a>
-                                        <a href="#" class="btn btn-danger">Excluir</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Robertinho</td>
-                                    <td>bertinho@roro.com</td>
-                                    <td>Inativo</td>
-                                    <td><a href="edit.php" class="btn btn-default">Editar</a>
-                                        <a href="#" class="btn btn-danger">Excluir</a>
-                                    </td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Tipo</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        while ($rows = mysqli_fetch_assoc($result)) { ?>
+                                    <tr>
+                                        <td><?php echo ucfirst($rows['ds_name']) ?></td>
+                                        <td><?php echo $rows['ds_email'] ?></td>
+                                        <td><?php echo ucfirst($rows['ds_role']) ?></td>
+                                        <td><?php echo ucfirst($rows['ds_status']) ?></td>
+                                        <td><button type="button" name="update" id="<?php echo $rows['id_user'] ?>"
+                                                class="btn btn-default update"><i class="bi bi-pencil-fill"></i>
+                                                Editar</button></td>
+                                        <td><button type="button" name="delete" id="<?php echo $rows['id_user'] ?>"
+                                                class="btn btn-danger delete"><i class="bi bi-trash3"></i>
+                                                Excluir</button></td>
+                                    </tr>
+                                    <?php $count++;
+                                        } ?>
+                                </tbody>
                             </table>
+                            <?php } ?>
                             <!--table table-striped-->
                         </div>
                         <!--card-body-->
@@ -195,7 +196,8 @@ if (!$user->loggedIn()) {
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../class/user.js"></script>
 
 </body>
 

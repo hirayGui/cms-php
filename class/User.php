@@ -70,34 +70,6 @@ class User
         $stmt->execute();
         $result = $stmt->get_result();
 
-        $stmtTotal = $this->conn->prepare($sqlQuery);
-        $stmtTotal->execute();
-        $allResult = $stmtTotal->get_result();
-        $allRecords = $allResult->num_rows;
-
-        $displayRecords = $result->num_rows;
-        $records = array();
-        $count = 1;
-        while ($user = $result->fetch_assoc()) {
-            $rows = array();
-            $rows[] = $count;
-            $rows[] = ucfirst($user['ds_name']);
-            $rows[] = $user['ds_email'];
-            $rows[] = ucfirst($user['ds_role']);
-            $rows[] = ucfirst($user['ds_status']);
-            $rows[] = '<button type="button" name="update" id"' . $user['id_user'] . '" class="btn btn-default update"><i class="bi bi-pencil-fill"></i>Editar</button>';
-            $rows[] = '<button type="button" name="delete" id"' . $user['id_user'] . '" class="btn btn-default delete"><i class="bi bi-trash3"></i>Excluir</button>';
-            $records[] = $rows;
-            $count++;
-        }
-
-        $output = array(
-            "draw" => intval($_POST['draw']),
-            "iTotalRecords" => $displayRecords,
-            "iTotalDisplayRecords" => $allRecords,
-            "data" => $records
-        );
-
-        echo json_encode($output);
+        return $result;
     }
 }
