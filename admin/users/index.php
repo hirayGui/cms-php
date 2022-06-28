@@ -14,6 +14,8 @@ if (!$user->loggedIn()) {
 
 $result = $user->listUsers();
 $usersCount = mysqli_num_rows($result);
+
+$space = $database->freeSpace();
 ?>
 
 <!doctype html>
@@ -96,7 +98,7 @@ $usersCount = mysqli_num_rows($result);
                                 class="bi bi-file-earmark"></i> Páginas <span class="badge">3</span></a>
                         <a href="../posts/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-newspaper"></i> Posts <span class="badge">3</span></a>
-                        <a href="users.php" class="list-group-item list-group-item-action active main-color-bg"
+                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span
                                 class="badge"><?php echo $usersCount; ?></span></a>
                     </div>
@@ -104,10 +106,11 @@ $usersCount = mysqli_num_rows($result);
 
                     <!--Progress bar showing how full the database is-->
                     <div class="well">
-                        <h4>Espaço utilizado no banco</h4>
+                        <h4>Espaço utilizado no banco <?php echo round($space, 2) ?>%</h4>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="100">25%</div>
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo round($space, 2) ?>%;"
+                                aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
+                                <?php echo round($space, 2) ?>%</div>
                         </div>
                         <!--progress-->
                     </div>

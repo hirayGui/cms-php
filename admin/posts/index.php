@@ -11,6 +11,8 @@ $user = new User($db);
 if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
+
+$space = $database->freeSpace();
 ?>
 
 <!doctype html>
@@ -90,7 +92,7 @@ if (!$user->loggedIn()) {
                         </a>
                         <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-file-earmark"></i> Páginas <span class="badge">3</span></a>
-                        <a href="posts.php" class="list-group-item list-group-item-action active main-color-bg"
+                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true"><i class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
                         <a href="../users/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-people-fill"></i> Usuários <span class="badge">2</span></a>
@@ -99,10 +101,11 @@ if (!$user->loggedIn()) {
 
                     <!--Progress bar showing how full the database is-->
                     <div class="well">
-                        <h4>Espaço utilizado no banco</h4>
+                        <h4>Espaço utilizado no banco <?php echo round($space, 2) ?>%</h4>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="100">25%</div>
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo round($space, 2) ?>%;"
+                                aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
+                                <?php echo round($space, 2) ?>%</div>
                         </div>
                         <!--progress-->
                     </div>
