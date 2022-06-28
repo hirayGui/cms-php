@@ -9,7 +9,7 @@ $user = new User($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
-    header('Location: index.php');
+    header('Location: ../index.php');
 }
 
 $result = $user->listUsers();
