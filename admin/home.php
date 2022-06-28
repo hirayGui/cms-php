@@ -37,14 +37,46 @@ if (!$user->loggedIn()) {
 <body>
 
     <!--Navbar-->
-    <?php include 'navbar.php'; ?>
+    <nav class="navbar navbar-expand-md navbar-default">
+        <a class="navbar-brand" href="#">Painel de Controle</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--navbar-toggler-->
+
+        <!--Navbar items-->
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pages/index.php">Páginas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="posts/index.php">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="users/index.php">Usuários</a>
+                </li>
+            </ul>
+            <ul class="navbar-right navbar-nav nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-secondary" href="logout.php">Sair</a>
+                </li>
+            </ul>
+        </div>
+        <!--collapse navbar-nav-->
+    </nav>
+    <!--navbar navbar-expand-md-->
 
     <!--Main message-->
     <header id="header">
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h1><i class="bi bi-gear-fill"></i>Home <small>Gerencie seu site</small></h1>
+                    <h1><i class="bi bi-house"></i>Home <small>Gerencie seu site</small></h1>
                 </div>
                 <!--col-md-10-->
             </div>
@@ -74,13 +106,13 @@ if (!$user->loggedIn()) {
                     <div class="list-group">
                         <a href="home.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true">
-                            <i class="bi bi-gear-fill"></i> Home
+                            <i class="bi bi-house"></i> Home
                         </a>
-                        <a href="pages.php" class="list-group-item list-group-item-action"><i
+                        <a href="pages/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-file-earmark"></i> Páginas <span class="badge">3</span></a>
-                        <a href="posts.php" class="list-group-item list-group-item-action"><i
+                        <a href="posts/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
-                        <a href="users.php" class="list-group-item list-group-item-action"><i
+                        <a href="users/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-people-fill"></i> Usuários <span class="badge">2</span></a>
                     </div>
                     <!--list-group-->

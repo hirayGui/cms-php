@@ -72,4 +72,22 @@ class User
 
         return $result;
     }
+
+    public function insert()
+    {
+        if ($this->role && $this->email && $this->password && $_SESSION['userid']) {
+            $stmt = $this->conn->prepare("
+            INSERT INTO " . $this->userTable . "(`ds_name`, `ds_email`, `ds_password`, `ds_role`, `ds_status`) VALUES (?, ?, ?, ?, ?)");
+            $this->role = htmlspecialchars(strip_tags($this->role));
+            $this->email = htmlspecialchars(strip_tags($this->email));
+            $this->name = htmlspecialchars(strip_tags($this->name));
+            $this->status = htmlspecialchars(strip_tags($this->status));
+            $this->password = hash('sha256', $this->password);
+            $stmt->bind_param('sssss', $this->name, $this->email, $this->password, $this->role, $this->status);
+
+            if ($stmt->execute()) {
+                return true;
+            }
+        }
+    }
 }

@@ -1,6 +1,6 @@
 <?php
-include_once '../config/Database.php';
-include_once '../class/User.php';
+include_once '../../config/Database.php';
+include_once '../../class/User.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -26,15 +26,15 @@ $usersCount = mysqli_num_rows($result);
     <title>Painel de Controle | Usuários</title>
 
     <!--Importing Bootstrap-->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     <!--Importing icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="shortcut icon" href="../assets/images/mbr-1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../assets/images/mbr-1.png" type="image/x-icon">
 
     <!--Importing custom styles-->
-    <link href="../css/styles.css" rel="stylesheet" type="text/css">
+    <link href="../../css/styles.css" rel="stylesheet" type="text/css">
 
 
 </head>
@@ -42,23 +42,22 @@ $usersCount = mysqli_num_rows($result);
 <body>
 
     <!--Navbar-->
-    <?php include 'navbar.php'; ?>
+    <?php include '../navbar.php'; ?>
 
     <!--Main message-->
     <header id="header">
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h1><i class="bi bi-gear-fill"></i>Usuários <small>Gerencie os usuários</small></h1>
+                    <h1><i class="bi bi-people-fill"></i>Usuários <small>Gerencie os usuários</small></h1>
                 </div>
                 <!--col-md-10-->
                 <div class="col-md-2">
                     <div class="create">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary main-color-bg" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                        <a href="create.php" class="btn btn-primary main-color-bg">
                             <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i> Criar novo usuário
-                        </button>
+                        </a>
                         <!--btn btn-primary-->
                     </div>
                     <!--create-->
@@ -75,7 +74,7 @@ $usersCount = mysqli_num_rows($result);
     <section id="breadcrumb-divider">
         <div class="container">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="home.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
                 <li class="breadcrumb-item active">Usuários</li>
             </ol>
         </div>
@@ -90,12 +89,12 @@ $usersCount = mysqli_num_rows($result);
                 <div class="col-md-3">
                     <!--List group showing areas you can manage-->
                     <div class="list-group">
-                        <a href="home.php" class="list-group-item list-group-item-action">
-                            <i class="bi bi-gear-fill"></i> Home
+                        <a href="../home.php" class="list-group-item list-group-item-action">
+                            <i class="bi bi-house"></i> Home
                         </a>
-                        <a href="pages.php" class="list-group-item list-group-item-action"><i
+                        <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-file-earmark"></i> Páginas <span class="badge">3</span></a>
-                        <a href="posts.php" class="list-group-item list-group-item-action"><i
+                        <a href="../posts/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-newspaper"></i> Posts <span class="badge">3</span></a>
                         <a href="users.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span
@@ -131,40 +130,42 @@ $usersCount = mysqli_num_rows($result);
                             </div>
                             <!--row-->
                             <br>
-                            <?php if (mysqli_num_rows($result)) { ?>
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Tipo</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        while ($rows = mysqli_fetch_assoc($result)) { ?>
-                                    <tr>
-                                        <td><?php echo ucfirst($rows['ds_name']) ?></td>
-                                        <td><?php echo $rows['ds_email'] ?></td>
-                                        <td><?php echo ucfirst($rows['ds_role']) ?></td>
-                                        <td><?php echo ucfirst($rows['ds_status']) ?></td>
-                                        <td><button type="button" name="update" id="<?php echo $rows['id_user'] ?>"
-                                                class="btn btn-default update"><i class="bi bi-pencil-fill"></i>
-                                                Editar</button></td>
-                                        <td><button type="button" name="delete" id="<?php echo $rows['id_user'] ?>"
-                                                class="btn btn-danger delete"><i class="bi bi-trash3"></i>
-                                                Excluir</button></td>
-                                    </tr>
-                                    <?php $count++;
-                                        } ?>
-                                </tbody>
-                            </table>
-                            <?php } ?>
-                            <!--table table-striped-->
+                            <div class="table-responsive">
+                                <?php if (mysqli_num_rows($result)) { ?>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Tipo</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            while ($rows = mysqli_fetch_assoc($result)) { ?>
+                                        <tr>
+                                            <td><?php echo ucfirst($rows['ds_name']) ?></td>
+                                            <td><?php echo $rows['ds_email'] ?></td>
+                                            <td><?php echo ucfirst($rows['ds_role']) ?></td>
+                                            <td><?php echo ucfirst($rows['ds_status']) ?></td>
+                                            <td><a name="update" id="<?php echo $rows['id_user'] ?>"
+                                                    class="btn btn-default update"><i class="bi bi-pencil-fill"></i>
+                                                    Editar</a></td>
+                                            <td><a name="delete" id="<?php echo $rows['id_user'] ?>"
+                                                    class="btn btn-danger delete"><i class="bi bi-trash3"></i>
+                                                    Excluir</a></td>
+                                        </tr>
+                                        <?php
+                                            } ?>
+                                    </tbody>
+                                </table>
+                                <?php } ?>
+                                <!--table table-striped-->
+                            </div>
+                            <!--table-responsive-->
                         </div>
                         <!--card-body-->
                     </div>
@@ -196,8 +197,7 @@ $usersCount = mysqli_num_rows($result);
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../class/user.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
 
 </body>
 

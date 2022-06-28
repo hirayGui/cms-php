@@ -1,6 +1,6 @@
 <?php
-include_once '../config/Database.php';
-include_once '../class/User.php';
+include_once '../../config/Database.php';
+include_once '../../class/User.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -20,33 +20,45 @@ if (!$user->loggedIn()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Painel de Controle | Páginas</title>
+    <title>Painel de Controle | Posts</title>
 
     <!--Importing Bootstrap-->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     <!--Importing icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="shortcut icon" href="../assets/images/mbr-1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../assets/images/mbr-1.png" type="image/x-icon">
 
     <!--Importing custom styles-->
-    <link href="../css/styles.css" rel="stylesheet" type="text/css">
+    <link href="../../css/styles.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
     <!--Navbar-->
-    <?php include 'navbar.php'; ?>
+    <?php include '../navbar.php'; ?>
 
     <!--Main message-->
     <header id="header">
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h1><i class="bi bi-gear-fill"></i>Páginas <small>Gerencie as páginas do seu site</small></h1>
+                    <h1><i class="bi bi-newspaper"></i>Posts <small>Gerencie suas publicações</small></h1>
                 </div>
                 <!--col-md-10-->
+                <div class="col-md-2">
+                    <div class="create">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary main-color-bg" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i> Criar novo post
+                        </button>
+                        <!--btn btn-primary-->
+                    </div>
+                    <!--create-->
+                </div>
+                <!--col-md-2-->
             </div>
             <!--row-->
         </div>
@@ -58,8 +70,8 @@ if (!$user->loggedIn()) {
     <section id="breadcrumb-divider">
         <div class="container">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="home.php">Home</a></li>
-                <li class="breadcrumb-item active">Páginas</li>
+                <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
+                <li class="breadcrumb-item active">Posts</li>
             </ol>
         </div>
         <!--container-->
@@ -73,15 +85,14 @@ if (!$user->loggedIn()) {
                 <div class="col-md-3">
                     <!--List group showing areas you can manage-->
                     <div class="list-group">
-                        <a href="home.php" class="list-group-item list-group-item-action">
-                            <i class="bi bi-gear-fill"></i> Home
+                        <a href="../home.php" class="list-group-item list-group-item-action">
+                            <i class="bi bi-house"></i> Home
                         </a>
-                        <a href="pages.php" class="list-group-item list-group-item-action active main-color-bg"
-                            aria-current="true"><i class="bi bi-file-earmark"></i> Páginas <span
-                                class="badge">3</span></a>
-                        <a href="posts.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
-                        <a href="users.php" class="list-group-item list-group-item-action"><i
+                        <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
+                                class="bi bi-file-earmark"></i> Páginas <span class="badge">3</span></a>
+                        <a href="posts.php" class="list-group-item list-group-item-action active main-color-bg"
+                            aria-current="true"><i class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
+                        <a href="../users/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-people-fill"></i> Usuários <span class="badge">2</span></a>
                     </div>
                     <!--list-group-->
@@ -103,12 +114,12 @@ if (!$user->loggedIn()) {
                     <!--Cards showing simplified statistics-->
                     <div class="card">
                         <div class="card-header main-color-bg">
-                            <h5>Visão Geral | Páginas</h5>
+                            <h5>Visão Geral | Publicações</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="Filtrar páginas">
+                                    <input type="text" class="form-control" placeholder="Filtrar posts">
                                 </div>
                                 <!--col-md-12-->
                             </div>
@@ -122,25 +133,25 @@ if (!$user->loggedIn()) {
                                     <th></th>
                                 </tr>
                                 <tr>
-                                    <td>Home</td>
+                                    <td>Inauguração</td>
                                     <td>Publicado</td>
-                                    <td>22 de junho</td>
+                                    <td>10 de março</td>
                                     <td><a href="edit.php" class="btn btn-default">Editar</a>
                                         <a href="#" class="btn btn-danger">Excluir</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Sobre</td>
-                                    <td>Publicado</td>
-                                    <td>5 de maio</td>
-                                    <td><a href="edit.php" class="btn btn-default">Editar</a>
-                                        <a href="#" class="btn btn-danger">Excluir</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Contato</td>
+                                    <td>Dicas de comida</td>
                                     <td>Não publicado</td>
-                                    <td>28 de janeiro</td>
+                                    <td>8 de agosto</td>
+                                    <td><a href="edit.php" class="btn btn-default">Editar</a>
+                                        <a href="#" class="btn btn-danger">Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Review de sopas</td>
+                                    <td>Não publicado</td>
+                                    <td>6 de junho</td>
                                     <td><a href="edit.php" class="btn btn-default">Editar</a>
                                         <a href="#" class="btn btn-danger">Excluir</a>
                                     </td>
@@ -178,7 +189,7 @@ if (!$user->loggedIn()) {
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
 
 </body>
 
