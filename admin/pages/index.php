@@ -90,7 +90,7 @@ $space = $database->freeSpace();
 
                     <!--Progress bar showing how full the database is-->
                     <div class="well">
-                        <h4>Espaço utilizado no banco <?php echo round($space, 2) ?>%</h4>
+                        <h4>Espaço livre no banco <?php echo round($space, 2) ?>%</h4>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: <?php echo round($space, 2) ?>%;"
                                 aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">

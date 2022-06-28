@@ -30,7 +30,7 @@ class Database
 
         if (mysqli_num_rows($result)) {
             $row = mysqli_fetch_assoc($result);
-            $finalResult = ($row['used_space'] * 100) / $totalSpace;
+            $finalResult = 100 - (($row['used_space'] * 100) / $totalSpace);
             return $finalResult;
         }
     }
