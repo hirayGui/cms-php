@@ -13,7 +13,7 @@ if (!$user->loggedIn()) {
 }
 
 $result = $user->listUsers();
-$usersCount = mysqli_num_rows($result);
+$usersCount = $user->listUsersNumber();
 
 $space = $database->freeSpace();
 ?>
@@ -127,7 +127,8 @@ $space = $database->freeSpace();
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="Filtrar usuários">
+                                    <input type="text" class="form-control" placeholder="Filtrar usuários" id="search"
+                                        onblur="search()">
                                 </div>
                                 <!--col-md-12-->
                             </div>
@@ -194,6 +195,14 @@ $space = $database->freeSpace();
     </footer>
 
     <!--Importing scripts-->
+    <script>
+    function search() {
+        console.log("cheguei aqui");
+        $.post('index.php', {
+            value: document.getElementById('search').value
+        })
+    }
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>

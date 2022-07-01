@@ -12,7 +12,9 @@ if (!$user->loggedIn()) {
     header('Location: index.php');
 }
 
+$usersCount = $user->listUsersNumber();
 $space = $database->freeSpace();
+$lastUsers = $user->listLastUsers();
 ?>
 
 <!doctype html>
@@ -115,7 +117,8 @@ $space = $database->freeSpace();
                         <a href="posts/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
                         <a href="users/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-people-fill"></i> Usuários <span class="badge">2</span></a>
+                                class="bi bi-people-fill"></i> Usuários <span
+                                class="badge"><?php echo $usersCount ?></span></a>
                     </div>
                     <!--list-group-->
 
@@ -142,7 +145,7 @@ $space = $database->freeSpace();
                         <div class="card-body">
                             <div class="col-md-3">
                                 <div class="well dash-box">
-                                    <h2><i class="bi bi-people-fill"></i> 2 </h2>
+                                    <h2><i class="bi bi-people-fill"></i> <?php echo $usersCount ?> </h2>
                                     <h4>Usuários</h4>
                                 </div>
                                 <!--well dash-box-->
@@ -183,25 +186,25 @@ $space = $database->freeSpace();
                             <h3 class="card-title">Últimos usuários</h3>
                         </div>
                         <!--card-header-->
-                        <div class="card-body">
+                        <div class="card-body table-responsive">
+                            <?php if (mysqli_num_rows($lastUsers)) { ?>
                             <table class="table table-striped table-hover">
                                 <tr>
                                     <th>Nome</th>
                                     <th>Email</th>
-                                    <th>Criado em:</th>
+                                    <th>Status</th>
                                 </tr>
+
+                                <?php while ($rows = mysqli_fetch_assoc($lastUsers)) { ?>
                                 <tr>
-                                    <td>Marcelo</td>
-                                    <td>Mar@celo.com</td>
-                                    <td>22 de Maio de 2022</td>
+                                    <td><?php echo ucfirst($rows['ds_name']); ?></td>
+                                    <td><?php echo $rows['ds_email']; ?></td>
+                                    <td><?php echo ucfirst($rows['ds_status']); ?></td>
                                 </tr>
-                                <tr>
-                                    <td>Anderson</td>
-                                    <td>Ander@son.com</td>
-                                    <td>20 de Abril de 2022</td>
-                                </tr>
+                                <?php } ?>
                             </table>
                             <!--table table-striped-->
+                            <?php } ?>
                         </div>
                         <!--card-body-->
                     </div>

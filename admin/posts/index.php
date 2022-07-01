@@ -12,6 +12,7 @@ if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
 
+$usersCount = $user->listUsersNumber();
 $space = $database->freeSpace();
 ?>
 
@@ -95,7 +96,8 @@ $space = $database->freeSpace();
                         <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true"><i class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
                         <a href="../users/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-people-fill"></i> Usuários <span class="badge">2</span></a>
+                                class="bi bi-people-fill"></i> Usuários <span
+                                class="badge"><?php echo $usersCount ?></span></a>
                     </div>
                     <!--list-group-->
 

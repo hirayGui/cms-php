@@ -73,6 +73,31 @@ class User
         return $result;
     }
 
+    public function listUsersNumber()
+    {
+        $sqlQuery = 'SELECT id_user, ds_name, ds_email, ds_password, ds_role, ds_status FROM ' . $this->userTable . " ";
+
+        $stmt = $this->conn->prepare($sqlQuery);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if (mysqli_num_rows($result)) {
+            $usersCount = mysqli_num_rows($result);
+        } else {
+            $usersCount = 0;
+        }
+        return $usersCount;
+    }
+
+    public function listLastUsers()
+    {
+        $sqlQuery = "SELECT id_user, ds_name, ds_email, ds_password, ds_role, ds_status FROM " . $this->userTable . " ORDER BY id_user DESC LIMIT 3";
+
+        $stmt = $this->conn->prepare($sqlQuery);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result;
+    }
+
     public function insert()
     {
         if ($this->role && $this->email && $this->password && $_SESSION['userid']) {
