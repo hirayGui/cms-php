@@ -86,6 +86,7 @@ if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['passwor
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
+                    <h3>Login</h3>
                     <?php if ($loginMessage != '') { ?>
                     <div id="login-alert" class="alert alert-danger col-sm-12">
                         <?php echo $loginMessage; ?>

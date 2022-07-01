@@ -12,10 +12,31 @@ if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
 
+if (!$user->isAdmin()) {
+    header('Location: index.php');
+}
+
+$errorMessage = '';
 $result = $user->listUsers();
-$usersCount = $user->listUsersNumber();
+$usersCount = mysqli_num_rows($result);
 
 $space = $database->freeSpace();
+
+//creating user
+if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['role']) && !empty($_POST['status'])) {
+    $user->name = $_POST['name'];
+    $user->email = $_POST['email'];
+    $user->password = $_POST['password'];
+    $user->role = $_POST['role'];
+    $user->status = $_POST['status'];
+    if ($user->insert()) {
+        header('Location: index.php?success=Usuário criado com sucesso!');
+    } else {
+        $errorMessage = 'Ocorreu um erro!';
+    }
+} else {
+    $errorMessage = "Favor preencher todos os campos!";
+}
 ?>
 
 <!doctype html>
@@ -25,7 +46,7 @@ $space = $database->freeSpace();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Painel de Controle | Usuários</title>
+    <title>Painel de Controle | Adicionar usuário</title>
 
     <!--Importing Bootstrap-->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -51,23 +72,9 @@ $space = $database->freeSpace();
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h1><i class="bi bi-people-fill"></i>Usuários <small>Gerencie os usuários</small></h1>
+                    <h1><i class="bi bi-people-fill"></i>Usuários <small>Criar um novo usuário</small></h1>
                 </div>
                 <!--col-md-10-->
-                <div class="col-md-2">
-                    <div class="create">
-                        <?php if ($user->isAdmin()) {
-                        ?>
-                        <!-- Button trigger modal -->
-                        <a href="create.php" class="btn btn-primary main-color-bg">
-                            <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i> Criar novo usuário
-                        </a>
-                        <!--btn btn-primary-->
-                        <?php } ?>
-                    </div>
-                    <!--create-->
-                </div>
-                <!--col-md-2-->
             </div>
             <!--row-->
         </div>
@@ -80,7 +87,8 @@ $space = $database->freeSpace();
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
-                <li class="breadcrumb-item active">Usuários</li>
+                <li class="breadcrumb-item"><a href="index.php">Usuários</a></li>
+                <lo class="breadcrumb-item active">Criar novo usuário</lo>
             </ol>
         </div>
         <!--container-->
@@ -122,74 +130,70 @@ $space = $database->freeSpace();
                 </div>
                 <!--col-md-3-->
                 <div class="col-md-9">
-                    <?php if (isset($_GET['success'])) { ?>
-                    <div id="success-alert" class="alert alert-success col-md-12">
-                        <?php echo $_GET['success']; ?>
-                    </div>
-                    <!--success-alert-->
-                    <?php } ?>
-                    <?php if (isset($_GET['error'])) { ?>
-                    <div id="error-alert" class="alert alert-danger col-md-12">
-                        <?php echo $_GET['error']; ?>
+                    <h3>Cadastro de novo usuário</h3>
+                    <?php if ($errorMessage != '') { ?>
+                    <div id="error-alert" class="alert alert-danger col-sm-12">
+                        <?php echo $errorMessage; ?>
                     </div>
                     <!--error-alert-->
                     <?php } ?>
-                    <!--Cards showing simplified statistics-->
-                    <div class="card">
-                        <div class="card-header main-color-bg">
-                            <h5>Visão Geral | Usuários</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="Filtrar usuários" id="search"
-                                        onblur="search()">
+                    <form action="" method="post" id="createUser" role="form" class="well">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="name">Informe o nome</label>
+                                <input type="text" name="name" id="name" placeholder="Informe o nome"
+                                    class="form-control">
+                            </div>
+                            <!--col-12-->
+                            <div class="col-md-6">
+                                <label for="email">Informe o email</label>
+                                <input type="email" name="email" id="email" placeholder="Informe o email"
+                                    class="form-control">
+                            </div>
+                            <!--col-md-6-->
+                            <div class="col md-6">
+                                <label for="email">Informe a senha</label>
+                                <input type="password" name="password" id="password" placeholder="Informe a senha"
+                                    class="form-control">
+                            </div>
+                            <!--col-md-6-->
+                            <div class="col-md-6">
+                                <label>Tipo de usuário</label>
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example
+                                    placeholder=" Escolha o tipo de usuário" id="role" name="role">
+                                    <option value="user" selected>Usuário (padrão)</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                            </div>
+                            <!--col-md-6-->
+                            <div class="col-md-4"><label>Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="status" id="status" checked
+                                        value="ativo">
+                                    <label class="form-check-label" for="status">
+                                        Ativo
+                                    </label>
                                 </div>
-                                <!--col-md-12-->
+                                <!--form-check-->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="status" id="status"
+                                        value="inativo">
+                                    <label class="form-check-label" for="status">
+                                        Inativo
+                                    </label>
+                                </div>
+                                <!--from-check-->
                             </div>
-                            <!--row-->
-                            <br>
-                            <div class="table-responsive">
-                                <?php if (mysqli_num_rows($result)) { ?>
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Email</th>
-                                            <th>Tipo</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            while ($rows = mysqli_fetch_assoc($result)) { ?>
-                                        <tr>
-                                            <td><?php echo ucfirst($rows['ds_name']) ?></td>
-                                            <td><?php echo $rows['ds_email'] ?></td>
-                                            <td><?php echo ucfirst($rows['ds_role']) ?></td>
-                                            <td><?php echo ucfirst($rows['ds_status']) ?></td>
-                                            <td><a name="update" id="<?php echo $rows['id_user'] ?>"
-                                                    class="btn btn-default update"><i class="bi bi-pencil-fill"></i>
-                                                    Editar</a></td>
-                                            <td><a name="delete" id="<?php echo $rows['id_user'] ?>"
-                                                    class="btn btn-danger delete"><i class="bi bi-trash3"></i>
-                                                    Excluir</a></td>
-                                        </tr>
-                                        <?php
-                                            } ?>
-                                    </tbody>
-                                </table>
-                                <?php } ?>
-                                <!--table table-striped-->
+                            <!--col-md-4-->
+                            <div class="col-md-2"></div>
+                            <!--col-md-2-->
+                            <div class="col-12">
+                                <input type="submit" value="Cadastrar" class="btn btn-primary main-color-bg"> <a
+                                    href="index.php" class="btn btn-default">Voltar</a>
                             </div>
-                            <!--table-responsive-->
                         </div>
-                        <!--card-body-->
-                    </div>
-                    <!--card-->
-
+                        <!--row g-3-->
+                    </form>
                 </div>
                 <!--col-md-9-->
             </div>
@@ -210,14 +214,6 @@ $space = $database->freeSpace();
     </footer>
 
     <!--Importing scripts-->
-    <script>
-    function search() {
-        console.log("cheguei aqui");
-        $.post('index.php', {
-            value: document.getElementById('search').value
-        })
-    }
-    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>

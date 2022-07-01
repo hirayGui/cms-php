@@ -25,6 +25,7 @@ class User
                 $_SESSION['userid'] = $user['id_user'];
                 $_SESSION['role'] = $user['ds_role'];
                 $_SESSION['name'] = $user['ds_name'];
+                $_SESSION['status'] = $user['ds_status'];
                 return 1;
             } else {
                 return 0;
@@ -49,6 +50,15 @@ class User
     public function isAdmin()
     {
         if (!empty($_SESSION['userid'] && $_SESSION['role'] == 'admin')) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public function isActive()
+    {
+        if ($_SESSION['status'] == 'ativo') {
             return 1;
         } else {
             return 0;

@@ -12,6 +12,10 @@ if (!$user->loggedIn()) {
     header('Location: index.php');
 }
 
+if (!$user->isActive()) {
+    header('Location: logout.php');
+}
+
 $usersCount = $user->listUsersNumber();
 $space = $database->freeSpace();
 $lastUsers = $user->listLastUsers();
