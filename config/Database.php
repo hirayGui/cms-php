@@ -3,7 +3,7 @@ session_start();
 
 class Database
 {
-    private $host = '127.0.0.1';
+    private $host = 'localhost';
     private $user = 'root';
     private $password = 'root';
     private $database = 'cms_teste';
