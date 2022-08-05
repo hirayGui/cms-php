@@ -204,7 +204,15 @@ $lastUsers = $user->listLastUsers();
                                 <tr>
                                     <td><?php echo ucfirst($rows['ds_name']); ?></td>
                                     <td><?php echo $rows['ds_email']; ?></td>
-                                    <td><?php echo ucfirst($rows['ds_status']); ?></td>
+                                    <?php if ($rows['ds_status'] == "inativo") { ?>
+                                    <td><button type="button"
+                                            class="btn btn-danger"><?php echo ucfirst($rows['ds_status']); ?></button>
+                                    </td>
+                                    <?php } else if ($rows['ds_status'] == 'ativo') { ?>
+                                    <td>
+                                        <p class="btn btn-success"><?php echo ucfirst($rows['ds_status']); ?></p>
+                                    </td>
+                                    <?php } ?>
                                 </tr>
                                 <?php } ?>
                             </table>

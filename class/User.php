@@ -15,7 +15,7 @@ class User
         if ($this->email && $this->password) {
             $sqlQuery = "SELECT id_user, ds_name, ds_email, ds_password, ds_role, ds_status FROM " . $this->userTable . " WHERE ds_email = ? AND ds_password = ?";
             $stmt = $this->conn->prepare($sqlQuery);
-            $password = hash('sha256', $this->password);
+            $password = $this->password;
             $stmt->bind_param('ss', $this->email, $password);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -65,6 +65,20 @@ class User
         }
     }
 
+    //listing a single user
+    public function selectUser()
+    {
+        if ($this->id) {
+            $sqlQuery = "SELECT id_user, ds_name, ds_email, ds_password, ds_role, ds_status FROM " . $this->userTable . " WHERE id_user = ?";
+            $stmt = $this->conn->prepare($sqlQuery);
+            $stmt->bind_param('i', $this->id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            return $result;
+        }
+    }
+
     //listing existing users
     public function listUsers()
     {
@@ -110,15 +124,33 @@ class User
 
     public function insert()
     {
-        if ($this->role && $this->email && $this->password && $_SESSION['userid']) {
+        if ($_SESSION['role'] && $this->email && $this->password && $_SESSION['userid']) {
             $stmt = $this->conn->prepare("
             INSERT INTO " . $this->userTable . "(`ds_name`, `ds_email`, `ds_password`, `ds_role`, `ds_status`) VALUES (?, ?, ?, ?, ?)");
             $this->role = htmlspecialchars(strip_tags($this->role));
             $this->email = htmlspecialchars(strip_tags($this->email));
             $this->name = htmlspecialchars(strip_tags($this->name));
             $this->status = htmlspecialchars(strip_tags($this->status));
-            $this->password = hash('sha256', $this->password);
+            $this->password = $this->password;
             $stmt->bind_param('sssss', $this->name, $this->email, $this->password, $this->role, $this->status);
+
+            if ($stmt->execute()) {
+                return true;
+            }
+        }
+    }
+
+    public function update()
+    {
+        if ($_SESSION['role'] && $this->email && $_SESSION['userid']) {
+            $stmt = $this->conn->prepare("
+            UPDATE " . $this->userTable . " SET ds_name = ?, ds_email = ?, ds_password = ?, ds_role = ?, ds_status = ? WHERE id_user = ?");
+            $this->name = htmlspecialchars(strip_tags($this->name));
+            $this->email = htmlspecialchars(strip_tags($this->email));
+            $this->password = $this->password;
+            $this->role = htmlspecialchars(strip_tags($this->role));
+            $this->status = htmlspecialchars(strip_tags($this->status));
+            $stmt->bind_param('sssssi', $this->name, $this->email, $this->password, $this->role, $this->status, $this->id);
 
             if ($stmt->execute()) {
                 return true;

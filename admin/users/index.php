@@ -169,13 +169,22 @@ $space = $database->freeSpace();
                                             <td><?php echo ucfirst($rows['ds_name']) ?></td>
                                             <td><?php echo $rows['ds_email'] ?></td>
                                             <td><?php echo ucfirst($rows['ds_role']) ?></td>
-                                            <td><?php echo ucfirst($rows['ds_status']) ?></td>
+                                            <?php if ($rows['ds_status'] == "inativo") { ?>
+                                            <td><button type="button"
+                                                    class="btn btn-danger"><?php echo ucfirst($rows['ds_status']); ?></button>
+                                            </td>
+                                            <?php } else if ($rows['ds_status'] == 'ativo') { ?>
+                                            <td>
+                                                <p class="btn btn-success"><?php echo ucfirst($rows['ds_status']); ?>
+                                                </p>
+                                            </td>
+                                            <?php } ?>
                                             <td><a name="update" id="<?php echo $rows['id_user'] ?>"
-                                                    class="btn btn-default update"><i class="bi bi-pencil-fill"></i>
-                                                    Editar</a></td>
+                                                    href='edit.php?id=<?php echo $rows['id_user'] ?>'
+                                                    class="btn btn-default update"><i class="bi bi-pencil-fill"></i></a>
+                                            </td>
                                             <td><a name="delete" id="<?php echo $rows['id_user'] ?>"
-                                                    class="btn btn-danger delete"><i class="bi bi-trash3"></i>
-                                                    Excluir</a></td>
+                                                    class="btn btn-danger delete"><i class="bi bi-trash3"></i></a></td>
                                         </tr>
                                         <?php
                                             } ?>
