@@ -33,7 +33,6 @@ $lastUsers = $user->listLastUsers();
 
     <!--Importing Bootstrap-->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     <!--Importing icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
@@ -45,47 +44,50 @@ $lastUsers = $user->listLastUsers();
 
 <body>
 
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-md navbar-default">
-        <a class="navbar-brand" href="#">Painel de Controle</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!--navbar-toggler-->
+    <!-- Navbar-->
+    <nav class="navbar navbar-expand-md navbar-default sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Painel de Controle</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--navbar-toggler-->
 
-        <!--Navbar items-->
-        <div class="collapse navbar-collapse" id="navbar">
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="home.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages/index.php">Páginas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="posts/index.php">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="users/index.php">Usuários</a>
-                </li>
-            </ul>
-            <ul class="navbar-right navbar-nav nav">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-secondary" href="logout.php">Sair</a>
-                </li>
-            </ul>
+            <!--Navbar items-->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/index.php">Páginas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="posts/index.php">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="users/index.php">Usuários</a>
+                    </li>
+                </ul>
+                <ul class="navbar-right navbar-nav nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-secondary" href="logout.php">Sair</a>
+                    </li>
+                </ul>
+            </div>
+            <!--collapse navbar-nav-->
         </div>
-        <!--collapse navbar-nav-->
+        <!--container-fluid-->
     </nav>
-    <!--navbar navbar-expand-md-->
+    <!--navbar navbar-expand-md -->
 
     <!--Main message-->
     <header id="header">
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h1><i class="bi bi-house"></i>Home <small>Gerencie seu site</small></h1>
+                    <h1><i class="bi bi-house"> </i>Home - <small>Gerencie seu site</small></h1>
                 </div>
                 <!--col-md-10-->
             </div>
@@ -96,15 +98,15 @@ $lastUsers = $user->listLastUsers();
     <!--header-->
 
     <!--Breadcrumb-->
-    <section id="breadcrumb">
-        <div class="container">
+    <div class="container">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="active">Home</li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="#">Home</a></li>
             </ol>
-        </div>
-        <!--container-->
-    </section>
-    <!--bradcrumb-->
+        </nav>
+        <!--breadcrumb-->
+    </div>
+    <!--container-->
 
     <!--Main section-->
     <section id="main">
@@ -118,26 +120,49 @@ $lastUsers = $user->listLastUsers();
                             <i class="bi bi-house"></i> Home
                         </a>
                         <a href="pages/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-file-earmark"></i> Páginas <span class="badge">3</span></a>
+                                class="bi bi-file-earmark"></i> Páginas <span
+                                class="badge text-bg-secondary">3</span></a>
                         <a href="posts/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
+                                class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary">5</span></a>
                         <a href="users/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-people-fill"></i> Usuários <span
-                                class="badge"><?php echo $usersCount ?></span></a>
+                                class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
                     </div>
                     <!--list-group-->
-
+                    <br>
                     <!--Progress bar showing how full the database is-->
-                    <div class="well">
-                        <h4>Espaço livre no banco <?php echo round($space, 2) ?>%</h4>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: <?php echo round($space, 2) ?>%;"
-                                aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
-                                <?php echo round($space, 2) ?>%</div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Espaço livre no banco <?php echo round($space, 2) ?>%</h4>
+                            <div class="progress">
+                                <?php if (round($space, 2) > 75) { ?>
+                                <div class="progress-bar bg-success" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
+                                <?php } ?>
+
+                                <?php if (round($space, 2) < 75 && round($space, 2) > 25) { ?>
+                                <div class="progress-bar bg-warning" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
+                                <?php } ?>
+
+                                <?php if (round($space, 2) < 25) { ?>
+                                <div class="progress-bar bg-danger" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
+                                <?php } ?>
+                            </div>
+                            <!--progress-->
                         </div>
-                        <!--progress-->
                     </div>
-                    <!--well-->
+                    <!--card-->
 
                 </div>
                 <!--col-md-3-->
@@ -148,38 +173,48 @@ $lastUsers = $user->listLastUsers();
                             <h5>Visão Geral</h5>
                         </div>
                         <div class="card-body">
-                            <div class="col-md-3">
-                                <div class="well dash-box">
-                                    <h2><i class="bi bi-people-fill"></i> <?php echo $usersCount ?> </h2>
-                                    <h4>Usuários</h4>
+                            <div class="row">
+                                <div class="col-3 col-md-3">
+                                    <div class="card dash-box">
+                                        <div class="card-body">
+                                            <h2><i class="bi bi-people-fill"></i> <?php echo $usersCount ?> </h2>
+                                            <h4>Usuários</h4>
+                                        </div>
+                                    </div>
+                                    <!--card dash-box-->
                                 </div>
-                                <!--well dash-box-->
-                            </div>
-                            <!--col-md-3-->
-                            <div class="col-md-3">
-                                <div class="well dash-box">
-                                    <h2><i class="bi bi-file-earmark"></i> 3 </h2>
-                                    <h4>Páginas</h4>
+                                <!--col-md-3-->
+                                <div class="col-3 col-md-3">
+                                    <div class="card dash-box">
+                                        <div class="card-body">
+                                            <h2><i class="bi bi-file-earmark"></i> 3 </h2>
+                                            <h4>Páginas</h4>
+                                        </div>
+                                    </div>
+                                    <!--card dash-box-->
                                 </div>
-                                <!--well dash-box-->
-                            </div>
-                            <!--col-md-3-->
-                            <div class="col-md-3">
-                                <div class="well dash-box">
-                                    <h2><i class="bi bi-newspaper"></i> 5 </h2>
-                                    <h4>Posts</h4>
+                                <!--col-md-3-->
+                                <div class="col-3 col-md-3">
+                                    <div class="card dash-box">
+                                        <div class="card-body">
+                                            <h2><i class="bi bi-newspaper"></i> 5 </h2>
+                                            <h4>Posts</h4>
+                                        </div>
+                                    </div>
+                                    <!--card dash-box-->
                                 </div>
-                                <!--well dash-box-->
-                            </div>
-                            <!--col-md-3-->
-                            <div class="col-md-3">
-                                <div class="well dash-box">
-                                    <h2><i class="bi bi-bar-chart-fill"></i> 22.356 </h2>
-                                    <h4>Visitantes</h4>
+                                <!--col-md-3-->
+                                <div class="col-3 col-md-3">
+                                    <div class="card dash-box">
+                                        <div class="card-body">
+                                            <h2><i class="bi bi-bar-chart-fill"></i> 22.356 </h2>
+                                            <h4>Visitantes</h4>
+                                        </div>
+                                    </div>
+                                    <!--card dash-box-->
                                 </div>
-                                <!--well dash-box-->
+                                <!--col-md-3-->
                             </div>
-                            <!--col-md-3-->
                         </div>
                         <!--card-body-->
                     </div>
@@ -232,7 +267,7 @@ $lastUsers = $user->listLastUsers();
     <!--main-->
 
     <!--Footer-->
-    <footer id="footer">
+    <footer id="footer" class="absolute-bottom">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
@@ -242,12 +277,8 @@ $lastUsers = $user->listLastUsers();
     </footer>
 
     <!--Importing scripts-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 
 </body>

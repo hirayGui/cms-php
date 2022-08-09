@@ -13,16 +13,19 @@ if ($user->loggedIn()) {
 }
 
 $loginMessage = '';
-if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password'])) {
-    $user->email = $_POST['email'];
-    $user->password = $_POST['password'];
-    if ($user->login()) {
-        header('Location: home.php');
+
+if (isset($_POST['login']) && isset($_POST['email']) && isset($_POST['password'])) {
+    if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+        $user->email = $_POST['email'];
+        $user->password = $_POST['password'];
+        if ($user->login()) {
+            header('Location: home.php');
+        } else {
+            $loginMessage = 'Login inválido! Por favor, tente novamente.';
+        }
     } else {
-        $loginMessage = 'Login inválido! Por favor, tente novamente.';
+        $loginMessage = 'Favor preencher todos os campos!';
     }
-} else {
-    $loginMessage = 'Favor preencher todos os campos!';
 }
 
 ?>
@@ -38,8 +41,6 @@ if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['passwor
 
     <!--Importing Bootstrap-->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
     <link rel="shortcut icon" href="../assets/images/mbr-1.png" type="image/x-icon">
     <!--Importing icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
@@ -52,17 +53,20 @@ if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['passwor
 
     <!--Navbar-->
     <nav class="navbar navbar-expand-md navbar-default">
-        <a class="navbar-brand" href="#">Painel de Controle</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!--navbar-toggler-->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Painel de Controle</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--navbar-toggler-->
 
-        <!--Navbar items-->
-        <div class="collapse navbar-collapse" id="navbar">
+            <!--Navbar items-->
+            <div class="collapse navbar-collapse" id="navbar">
+            </div>
+            <!--collapse navbar-nav-->
         </div>
-        <!--collapse navbar-nav-->
+        <!--container-fluid-->
     </nav>
     <!--navbar navbar-expand-md-->
 
@@ -85,7 +89,7 @@ if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['passwor
     <section id="main">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-md-offset-4">
+                <div class="col-md-4 offset-md-4">
                     <h3>Login</h3>
                     <?php if ($loginMessage != '') { ?>
                     <div id="login-alert" class="alert alert-danger col-sm-12">
@@ -94,24 +98,30 @@ if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['passwor
                     <!--login-alert-->
                     <?php } ?>
                     <form method="POST" id="login" class="well" action="" role="form">
-                        <div class="form-group">
-                            <label>Email</label>
+                        <div class="form-floating">
                             <input required type="text" class="form-control" placeholder="Insira seu email" name="email"
                                 value='<?php if (!empty($_POST["email"])) {
                                                                                                                                     echo $_POST["email"];
                                                                                                                                 } ?>'>
+                            <label for="email">Email</label>
                         </div>
-                        <!--form-group-->
-                        <div class="form-group">
-                            <label>Senha</label>
+                        <br>
+                        <!--form-floating-->
+                        <div class="form-floating">
                             <input required type="password" class="form-control" placeholder="Insira sua senha"
                                 name="password"
                                 value='<?php if (!empty($_POST["password"])) {
                                                                                                                                             echo $_POST["password"];
                                                                                                                                         } ?>'>
+                            <label for="password">Senha</label>
                         </div>
-                        <!--form-group-->
-                        <input type="submit" class="btn btn-default btn-block" name="login" value="Login">
+                        <!--form-floating-->
+                        <br>
+                        <div class="d-grid gap-4 col-12 mx-auto">
+                            <input type="submit" class="btn btn-primary btn-block main-color-bg" name="login"
+                                value="Login">
+                        </div>
+                        <!--d-grid gap-4 col-12 mx-auto-->
 
                     </form>
                     <!--login-->
@@ -126,7 +136,7 @@ if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['passwor
 
 
     <!--Footer-->
-    <footer id="footer">
+    <footer id="footer" class="fixed-bottom">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
@@ -136,12 +146,8 @@ if (!empty($_POST['login']) && !empty($_POST['email']) && !empty($_POST['passwor
     </footer>
 
     <!--Importing scripts-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 
 </body>

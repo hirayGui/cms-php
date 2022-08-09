@@ -27,7 +27,6 @@ $space = $database->freeSpace();
 
     <!--Importing Bootstrap-->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     <!--Importing icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
@@ -46,16 +45,16 @@ $space = $database->freeSpace();
     <header id="header">
         <div class="container">
             <div class="row">
-                <div class="col-md-10">
-                    <h1><i class="bi bi-newspaper"></i>Posts <small>Gerencie suas publicações</small></h1>
+                <div class="col-md-9">
+                    <h1><i class="bi bi-newspaper"></i> Posts </h1>
                 </div>
                 <!--col-md-10-->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="create">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary main-color-bg" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
-                            <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i> Criar novo post
+                            <i class="bi bi-plus-lg"></i> Criar novo post
                         </button>
                         <!--btn btn-primary-->
                     </div>
@@ -70,16 +69,16 @@ $space = $database->freeSpace();
     <!--header-->
 
     <!--Breadcrumb-->
-    <section id="breadcrumb-divider">
-        <div class="container">
+    <div class="container">
+        <nav style="--bs-breadcrumb-divider: '->';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
-                <li class="breadcrumb-item active">Posts</li>
+                <li class="breadcrumb-item" aria-current="page"><a href="../home.php">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Posts</li>
             </ol>
-        </div>
-        <!--container-->
-    </section>
-    <!--bradcrumb-->
+        </nav>
+        <!--breadcrumb-->
+    </div>
+    <!--container-->
 
     <!--Main section-->
     <section id="main">
@@ -92,26 +91,50 @@ $space = $database->freeSpace();
                             <i class="bi bi-house"></i> Home
                         </a>
                         <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-file-earmark"></i> Páginas <span class="badge">3</span></a>
+                                class="bi bi-file-earmark"></i> Páginas <span
+                                class="badge text-bg-secondary">3</span></a>
                         <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
-                            aria-current="true"><i class="bi bi-newspaper"></i> Posts <span class="badge">5</span></a>
+                            aria-current="true"><i class="bi bi-newspaper"></i> Posts <span
+                                class="badge text-bg-secondary">5</span></a>
                         <a href="../users/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-people-fill"></i> Usuários <span
-                                class="badge"><?php echo $usersCount ?></span></a>
+                                class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
                     </div>
                     <!--list-group-->
-
+                    <br>
                     <!--Progress bar showing how full the database is-->
-                    <div class="well">
-                        <h4>Espaço livre no banco <?php echo round($space, 2) ?>%</h4>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: <?php echo round($space, 2) ?>%;"
-                                aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
-                                <?php echo round($space, 2) ?>%</div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Espaço livre no banco <?php echo round($space, 2) ?>%</h4>
+                            <div class="progress">
+                                <?php if (round($space, 2) > 75) { ?>
+                                <div class="progress-bar bg-success" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
+                                <?php } ?>
+
+                                <?php if (round($space, 2) < 75 && round($space, 2) > 25) { ?>
+                                <div class="progress-bar bg-warning" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
+                                <?php } ?>
+
+                                <?php if (round($space, 2) < 25) { ?>
+                                <div class="progress-bar bg-danger" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
+                                <?php } ?>
+                            </div>
+                            <!--progress-->
                         </div>
-                        <!--progress-->
                     </div>
-                    <!--well-->
+                    <!--card-->
 
                 </div>
                 <!--col-md-3-->
@@ -178,7 +201,7 @@ $space = $database->freeSpace();
     <!--main-->
 
     <!--Footer-->
-    <footer id="footer">
+    <footer id="footer" class="absolute-bottom">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
@@ -188,12 +211,7 @@ $space = $database->freeSpace();
     </footer>
 
     <!--Importing scripts-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
 
 </body>
