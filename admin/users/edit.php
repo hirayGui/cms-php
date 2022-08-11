@@ -13,7 +13,7 @@ if (!$user->loggedIn()) {
 }
 
 if (!$user->isAdmin()) {
-    header('Location: index.php');
+    header('Location: index.php?error=Você não tem permissão para realizar esta ação!');
 }
 
 if (isset($_GET['id'])) {

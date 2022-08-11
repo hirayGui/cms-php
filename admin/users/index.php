@@ -210,8 +210,9 @@ $space = $database->freeSpace();
                                                         class="bi bi-pencil-fill"></i></a>
                                             </td>
                                             <td><a name="delete" id="<?php echo $rows['id_user'] ?>"
-                                                    class="btn btn-danger delete" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal"><i class="bi bi-trash3"></i></a></td>
+                                                    class="btn btn-danger delete"
+                                                    href='delete.php?id=<?php echo $rows['id_user'] ?>'><i
+                                                        class="bi bi-trash3"></i></a></td>
                                         </tr>
                                         <?php
                                             } ?>
