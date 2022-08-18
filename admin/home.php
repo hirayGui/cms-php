@@ -1,12 +1,14 @@
 <?php
 include_once '../config/Database.php';
 include_once '../class/User.php';
+include_once '../class/Post.php';
 
 
 $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
+$post = new Post($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
@@ -18,6 +20,7 @@ if (!$user->isActive()) {
 }
 
 $usersCount = $user->listUsersNumber();
+$postsCount = $post->listPostsNumber();
 $space = $database->freeSpace();
 $lastUsers = $user->listLastUsers();
 ?>
@@ -123,7 +126,8 @@ $lastUsers = $user->listLastUsers();
                                 class="bi bi-file-earmark"></i> Páginas <span
                                 class="badge text-bg-secondary">3</span></a>
                         <a href="posts/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary">5</span></a>
+                                class="bi bi-newspaper"></i> Posts <span
+                                class="badge text-bg-secondary"><?php echo $postsCount ?></span></a>
                         <a href="users/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-people-fill"></i> Usuários <span
                                 class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
@@ -197,7 +201,7 @@ $lastUsers = $user->listLastUsers();
                                 <div class="col-3 col-md-3">
                                     <div class="card dash-box">
                                         <div class="card-body">
-                                            <h2><i class="bi bi-newspaper"></i> 5 </h2>
+                                            <h2><i class="bi bi-newspaper"></i> <?php echo $postsCount ?> </h2>
                                             <h4>Posts</h4>
                                         </div>
                                     </div>

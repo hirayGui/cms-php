@@ -1,11 +1,13 @@
 <?php
 include_once '../../config/Database.php';
 include_once '../../class/User.php';
+include_once '../../class/Post.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
+$post = new Post($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
@@ -22,8 +24,8 @@ if (isset($_GET['id'])) {
 } else {
 }
 
-$result = $user->listUsers();
-$usersCount = mysqli_num_rows($result);
+$usersCount = $user->listUsersNumber();
+$postsCount = $post->listPostsNumber();
 
 $errorMessage = '';
 
@@ -119,7 +121,8 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                                 class="bi bi-file-earmark"></i> Páginas <span
                                 class="badge text-bg-secondary">3</span></a>
                         <a href="../posts/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary">3</span></a>
+                                class="bi bi-newspaper"></i> Posts <span
+                                class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
                         <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span
                                 class="badge text-bg-secondary"><?php echo $usersCount; ?></span></a>

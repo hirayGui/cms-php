@@ -27,11 +27,21 @@ CREATE TABLE tb_posts(
     ds_status ENUM('publicado', 'não publicado') DEFAULT 'publicado' NOT NULL,
     id_user INT NOT NULL,
     id_category INT NOT NULL,
+    id_image INT NOT NULL,
     PRIMARY KEY(id_post),
     FOREIGN KEY (id_user) REFERENCES tb_users(id_user),
-    FOREIGN KEY (id_category) REFERENCES tb_categories(id_category)
+    FOREIGN KEY (id_category) REFERENCES tb_categories(id_category),
+    FOREIGN KEY (id_image) REFERENCES tb_images(id_image)
     );/* Post has an author and a category, therefore it needs their primary keys*/
     
+CREATE TABLE tb_images(
+	id_image INT NOT NULL AUTO_INCREMENT,
+    ds_image LONGBLOB NOT NULL,
+    ds_description VARCHAR(55) NOT NULL,
+    dt_created DATE DEFAULT(current_date) NOT NULL,
+    PRIMARY KEY(id_image)
+);
+
 /*Inserts*/
 INSERT INTO tb_categories(
 			ds_name
@@ -60,16 +70,18 @@ INSERT INTO tb_posts (
                 ds_body,
                 ds_status,
                 id_user,
-                id_category)
+                id_category,
+                id_image)
 VALUES (
-		'Post 3',
+		'Post 2',
 		'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam, 
         iste. Quod dolore similique error. Sed omnis, beatae labore ipsum 
         exercitationem expedita tenetur molestiae tempore suscipit perspiciatis 
         quisquam? Culpa, numquam optio!',
         'publicado',
         1,
-        3);
+        3,
+        2);
 
 /*Selects*/
 SELECT id_category,
@@ -83,15 +95,6 @@ SELECT 	id_user,
         ds_role,
         ds_status
 FROM tb_users;
-
-SELECT 	id_post as Id,
-		ds_title as Título,
-        ds_body as Texto,
-        DATE_FORMAT(dt_created, '%e %b %Y') as Criação,
-        ds_status as Status,
-        id_user as Autor,
-        id_category as Categoria
-FROM tb_posts;
 
 /**/
 SELECT table_schema "DB name",

@@ -1,18 +1,22 @@
 <?php
 include_once '../../config/Database.php';
 include_once '../../class/User.php';
+include_once '../../class/Post.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
+$post = new Post($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
 
+$result = $post->listPosts();
 $usersCount = $user->listUsersNumber();
+$postsCount = $post->listPostsNumber();
 $space = $database->freeSpace();
 ?>
 
@@ -52,10 +56,9 @@ $space = $database->freeSpace();
                 <div class="col-md-3">
                     <div class="create">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary main-color-bg" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                        <a class="btn btn-primary main-color-bg" href="create.php">
                             <i class="bi bi-plus-lg"></i> Criar novo post
-                        </button>
+                        </a>
                         <!--btn btn-primary-->
                     </div>
                     <!--create-->
@@ -95,7 +98,7 @@ $space = $database->freeSpace();
                                 class="badge text-bg-secondary">3</span></a>
                         <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true"><i class="bi bi-newspaper"></i> Posts <span
-                                class="badge text-bg-secondary">5</span></a>
+                                class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
                         <a href="../users/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-people-fill"></i> Usuários <span
                                 class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
@@ -139,6 +142,18 @@ $space = $database->freeSpace();
                 </div>
                 <!--col-md-3-->
                 <div class="col-md-9">
+                    <?php if (isset($_GET['success'])) { ?>
+                    <div id="success-alert" class="alert alert-success col-md-12">
+                        <?php echo $_GET['success']; ?>
+                    </div>
+                    <!--success-alert-->
+                    <?php } ?>
+                    <?php if (isset($_GET['error'])) { ?>
+                    <div id="error-alert" class="alert alert-danger col-md-12">
+                        <?php echo $_GET['error']; ?>
+                    </div>
+                    <!--error-alert-->
+                    <?php } ?>
                     <!--Cards showing simplified statistics-->
                     <div class="card">
                         <div class="card-header main-color-bg">
@@ -153,39 +168,50 @@ $space = $database->freeSpace();
                             </div>
                             <!--row-->
                             <br>
-                            <table class="table table-striped table-hover">
-                                <tr>
-                                    <th>Título</th>
-                                    <th>Status</th>
-                                    <th>Data de Criação</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td>Inauguração</td>
-                                    <td>Publicado</td>
-                                    <td>10 de março</td>
-                                    <td><a href="edit.php" class="btn btn-default">Editar</a>
-                                        <a href="#" class="btn btn-danger">Excluir</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Dicas de comida</td>
-                                    <td>Não publicado</td>
-                                    <td>8 de agosto</td>
-                                    <td><a href="edit.php" class="btn btn-default">Editar</a>
-                                        <a href="#" class="btn btn-danger">Excluir</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Review de sopas</td>
-                                    <td>Não publicado</td>
-                                    <td>6 de junho</td>
-                                    <td><a href="edit.php" class="btn btn-default">Editar</a>
-                                        <a href="#" class="btn btn-danger">Excluir</a>
-                                    </td>
-                                </tr>
-                            </table>
-                            <!--table table-striped-->
+                            <div class="table-responsive">
+                                <?php if (mysqli_num_rows($result)) { ?>
+                                <table class="table table-striped table-hover">
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Categoria</th>
+                                        <th>Status</th>
+                                        <th>Autor</th>
+                                        <th>Data de Criação</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    <?php
+                                        while ($rows = mysqli_fetch_assoc($result)) { ?>
+                                    <tr>
+                                        <td><?php echo ucfirst($rows['ds_title']) ?></td>
+                                        <td><?php echo ucfirst($rows['category']) ?></td>
+                                        <?php if ($rows['ds_status'] === "não publicado") { ?>
+                                        <td><button type="button"
+                                                class="btn btn-danger"><?php echo ucfirst($rows['ds_status']); ?></button>
+                                        </td>
+                                        <?php } else if ($rows['ds_status'] == 'publicado') { ?>
+                                        <td>
+                                            <p class="btn btn-success"><?php echo ucfirst($rows['ds_status']); ?>
+                                            </p>
+                                        </td>
+                                        <?php } ?>
+                                        <td><?php echo ucfirst($rows['author']) ?></td>
+                                        <td><?php echo $rows['dt_created'] ?></td>
+                                        <td><a name="update" id="<?php echo $rows['id_post'] ?>"
+                                                href='edit.php?id=<?php echo $rows['id_post'] ?>'
+                                                class="btn btn-outline-dark update"><i
+                                                    class="bi bi-pencil-fill"></i></a>
+                                        </td>
+                                        <td><a name="delete" id="<?php echo $rows['id_post'] ?>"
+                                                class="btn btn-danger delete"
+                                                href='delete.php?id=<?php echo $rows['id_post'] ?>'><i
+                                                    class="bi bi-trash3"></i></a></td>
+                                    </tr>
+                                    <?php } ?>
+                                </table>
+                                <!--table table-striped-->
+                                <?php } ?>
+                            </div>
                         </div>
                         <!--card-body-->
                     </div>

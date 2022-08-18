@@ -1,11 +1,13 @@
 <?php
 include_once '../../config/Database.php';
 include_once '../../class/User.php';
+include_once '../../class/Post.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
+$post = new Post($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
@@ -13,6 +15,7 @@ if (!$user->loggedIn()) {
 }
 
 $usersCount = $user->listUsersNumber();
+$postsCount = $post->listPostsNumber();
 $space = $database->freeSpace();
 ?>
 
@@ -82,7 +85,8 @@ $space = $database->freeSpace();
                             aria-current="true"><i class="bi bi-file-earmark"></i> Páginas <span
                                 class="badge text-bg-secondary">3</span></a>
                         <a href="../posts/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary">5</span></a>
+                                class="bi bi-newspaper"></i> Posts <span
+                                class="badge text-bg-secondary"><?php echo $postsCount ?></span></a>
                         <a href="../users/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-people-fill"></i> Usuários <span
                                 class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>

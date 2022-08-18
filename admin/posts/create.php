@@ -2,12 +2,14 @@
 include_once '../../config/Database.php';
 include_once '../../class/User.php';
 include_once '../../class/Post.php';
+include_once '../../class/Category.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
 $post = new Post($db);
+$category = new Category($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
@@ -19,26 +21,45 @@ if (!$user->isAdmin()) {
 }
 
 $errorMessage = '';
+$users = $user->listUsers();
+$categories = $category->listCategories();
 $usersCount = $user->listUsersNumber();
 $postsCount = $post->listPostsNumber();
 
 $space = $database->freeSpace();
 
-//creating user
-if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['role']) && isset($_POST['status'])) {
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['role']) && !empty($_POST['status'])) {
-        $user->name = $_POST['name'];
-        $user->email = $_POST['email'];
-        $user->password = $_POST['password'];
-        $user->role = $_POST['role'];
-        $user->status = $_POST['status'];
-        if ($user->insert()) {
-            header('Location: index.php?success=Usuário criado com sucesso!');
-        } else {
-            $errorMessage = 'Ocorreu um erro!';
+//creating post
+if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['imgDescription']) && isset($_POST['category']) && isset($_POST['status'])) {
+    if (!empty($_FILES["image"]["name"]) && !empty($_POST['title']) && !empty($_POST['body']) && !empty($_POST['imgDescription']) && !empty($_POST['category']) && !empty($_POST['status'])) {
+        //getting file info
+        $fileName = basename($_FILES["image"]["name"]);
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        //allowing certain file type
+        $allowTypes = array('jpg', 'jpeg', 'png', 'gif');
+        if (in_array($fileType, $allowTypes)) {
+            $image = $_FILES["image"]["tmp_name"];
+            $imgContent = addslashes(file_get_contents($image));
+
+            $post->imgContent = $imgContent;
+            $post->imgDescription = $_POST['imgDescription'];
+
+            if ($post->imgInsert()) {
+                $post->title = $_POST['title'];
+                $post->body = $_POST['body'];
+                $post->category = $_POST['category'];
+                $post->status = $_POST['status'];
+                $post->author = $_SESSION['userid'];
+
+                if ($post->insert()) {
+                    header('Location: index.php?success=Post criado com sucesso!');
+                } else {
+                    $errorMessage = 'Não foi possível criar post!';
+                }
+            } else {
+                $errorMessage = 'Não foi possível salvar imagem!';
+            }
         }
-    } else {
-        $errorMessage = "Favor preencher todos os campos!";
     }
 }
 ?>
@@ -50,7 +71,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Painel de Controle | Adicionar usuário</title>
+    <title>Painel de Controle | Adicionar post</title>
 
     <!--Importing Bootstrap-->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -61,6 +82,9 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
 
     <!--Importing custom styles-->
     <link href="../../css/styles.css" rel="stylesheet" type="text/css">
+
+    <!--Importing custom textarea-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
 
 
 </head>
@@ -75,7 +99,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h1><i class="bi bi-people-fill"></i> Usuários</h1>
+                    <h1><i class="bi bi-newspaper"></i> Posts </h1>
                 </div>
                 <!--col-md-10-->
             </div>
@@ -90,8 +114,8 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
         <nav style="--bs-breadcrumb-divider: '->';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page"><a href="../home.php">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="index.php">Usuários</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Criar usuário</li>
+                <li class="breadcrumb-item" aria-current="page"><a href="index.php">Posts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Criar post</li>
             </ol>
         </nav>
         <!--breadcrumb-->
@@ -157,57 +181,70 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                 </div>
                 <!--col-md-3-->
                 <div class="col-md-9">
-                    <h3>Cadastro de novo usuário</h3>
+                    <h3>Criação de novo post</h3>
                     <?php if ($errorMessage != '') { ?>
                     <div id="error-alert" class="alert alert-danger col-sm-12">
                         <?php echo $errorMessage; ?>
                     </div>
                     <!--error-alert-->
                     <?php } ?>
-                    <form action="#" method="post" id="createUser" role="form" class="card">
+                    <form action="#" method="post" id="createPost" role="form" class="card"
+                        enctype="multipart/form-data">
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-12 form-floating">
-                                    <input type="text" name="name" id="name" placeholder="Informe o nome"
+                                    <input type="text" name="title" id="title" placeholder="Informe o título"
                                         class="form-control" required>
-                                    <label for="name">Nome</label>
+                                    <label for="name">Título</label>
                                 </div>
                                 <!--col-12-->
-                                <div class="col-md-6 form-floating">
-                                    <input type="email" name="email" id="email" placeholder="Informe o email"
-                                        class="form-control" required>
-                                    <label for="email">Email</label>
+                                <div class="col-12 form-floating">
+                                    <textarea id="editor" type="text" class="form-control" name="body"
+                                        placeholder="Corpo da postagem">
+                                    </textarea>
+                                    <label for="body"></label>
                                 </div>
-                                <!--col-md-6-->
-                                <div class="col md-6 form-floating">
-                                    <input type="password" name="password" id="password" placeholder="Informe a senha"
-                                        class="form-control" required>
-                                    <label for="email">Senha</label>
+                                <!--col-12-->
+                                <div class="col-12">
+                                    <label for="image">Imagem</label><br>
+                                    <input type="file" name="image" id="image">
                                 </div>
-                                <!--col-md-6-->
+                                <!--col-12-->
+
+                                <div class="col-12 form-floating">
+                                    <input type="text" name="imgDescription" id="imgDescription"
+                                        placeholder="Informe a descrição da imagem" class="form-control" required>
+                                    <label for="imgDescription">Descrição da imagem</label>
+                                </div>
+                                <!--col-12-->
+
+                                <?php if (mysqli_num_rows($categories)) { ?>
                                 <div class="col-md-6 form-floating">
                                     <select class="form-select" aria-label=".form-select-lg example"
-                                        placeholder=" Escolha o tipo de usuário" id="role" name="role">
-                                        <option value="user" selected>Usuário (padrão)</option>
-                                        <option value="admin">Administrador</option>
+                                        placeholder=" Escolha a categoria" id="category" name="category">
+                                        <?php while ($rows = mysqli_fetch_assoc($categories)) { ?>
+                                        <option value="<?php echo $rows['id_category'] ?>">
+                                            <?php echo $rows['ds_name'] ?></option>
+                                        <?php } ?>
                                     </select>
-                                    <label>Tipo de usuário</label>
+                                    <label>Categoria</label>
                                 </div>
                                 <!--col-md-6-->
+                                <?php } ?>
                                 <div class="col-md-4"><label>Status</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" id="status" checked
-                                            value="ativo">
+                                            value="publicado">
                                         <label class="form-check-label" for="status">
-                                            Ativo
+                                            Publicado
                                         </label>
                                     </div>
                                     <!--form-check-->
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" id="status"
-                                            value="inativo">
+                                            value="não publicado">
                                         <label class="form-check-label" for="status">
-                                            Inativo
+                                            Não publicado
                                         </label>
                                     </div>
                                     <!--form-check-->
@@ -216,8 +253,9 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                                 <div class="col-md-2"></div>
                                 <!--col-md-2-->
                                 <div class="col-12">
-                                    <input type="submit" value="Cadastrar" class="btn btn-primary main-color-bg"> <a
-                                        href="index.php" class="btn btn-outline-dark">Voltar</a>
+                                    <input type="submit" name='submit' value="Cadastrar"
+                                        class="btn btn-primary main-color-bg"> <a href="index.php"
+                                        class="btn btn-outline-dark">Voltar</a>
                                 </div>
                             </div>
                             <!--row g-3-->
@@ -245,6 +283,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     <!--Importing scripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/scripts.js"></script>
 
 </body>
 
