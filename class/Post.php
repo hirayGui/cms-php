@@ -81,4 +81,20 @@ class Post
             }
         }
     }
+
+    public function delete()
+    {
+        if ($this->id) {
+            if ($_SESSION['role'] == "admin") {
+                $stmt = $this->conn->prepare("
+            DELETE FROM " . $this->postTable . " WHERE id_post = ?");
+                $this->id = $this->id;
+                $stmt->bind_param('i', $this->id);
+
+                if ($stmt->execute()) {
+                    return true;
+                }
+            }
+        }
+    }
 }

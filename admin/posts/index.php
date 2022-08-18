@@ -172,6 +172,7 @@ $space = $database->freeSpace();
                                 <?php if (mysqli_num_rows($result)) { ?>
                                 <table class="table table-striped table-hover">
                                     <tr>
+                                        <th>Imagem</th>
                                         <th>Título</th>
                                         <th>Categoria</th>
                                         <th>Status</th>
@@ -183,6 +184,9 @@ $space = $database->freeSpace();
                                     <?php
                                         while ($rows = mysqli_fetch_assoc($result)) { ?>
                                     <tr>
+                                        <td><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>"
+                                                alt="<?php echo ucfirst($rows['ds_description']) ?>"
+                                                class="img-thumbnail"></td>
                                         <td><?php echo ucfirst($rows['ds_title']) ?></td>
                                         <td><?php echo ucfirst($rows['category']) ?></td>
                                         <?php if ($rows['ds_status'] === "não publicado") { ?>

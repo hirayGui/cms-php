@@ -1,11 +1,13 @@
 <?php
 include_once '../../config/Database.php';
 include_once '../../class/User.php';
+include_once '../../class/Post.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
+$post = new Post($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
@@ -18,14 +20,14 @@ if (!$user->isAdmin()) {
 
 if (isset($_GET['id'])) {
     if (!empty($_GET['id'])) {
-        $user->id = $_GET['id'];
+        $post->id = $_GET['id'];
 
-        if ($user->delete()) {
-            header('Location: index.php?success=Usuário deletado com sucesso!');
+        if ($post->delete()) {
+            header('Location: index.php?success=Post deletado com sucesso!');
         } else {
-            header('Location: index.php?error=Ocorreu um erro ao tentar deletar usuário!');
+            header('Location: index.php?error=Ocorreu um erro ao tentar deletar post!');
         }
     }
 } else {
-    header('Location: index.php?error=Ocorreu um erro ao tentar selecionar usuário!');
+    header('Location: index.php?error=Ocorreu um erro ao selecionar post!');
 }
