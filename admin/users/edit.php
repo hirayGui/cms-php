@@ -169,7 +169,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                     <h3>Editar usuário</h3>
                     <?php if ($errorMessage != '') { ?>
                     <div id="error-alert" class="alert alert-danger col-sm-12">
-                        <?php echo $errorMessage; ?>
+                        <i class="bi bi-exclamation-triangle"></i> <?php echo $errorMessage; ?>
                     </div>
                     <!--error-alert-->
                     <?php } ?>

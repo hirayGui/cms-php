@@ -16,10 +16,6 @@ if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
 
-if (!$user->isAdmin()) {
-    header('Location: index.php?error=Você não tem permissão para realizar esta ação!');
-}
-
 $errorMessage = '';
 $users = $user->listUsers();
 $categories = $category->listCategories();
@@ -184,7 +180,7 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                     <h3>Criação de novo post</h3>
                     <?php if ($errorMessage != '') { ?>
                     <div id="error-alert" class="alert alert-danger col-sm-12">
-                        <?php echo $errorMessage; ?>
+                        <i class="bi bi-exclamation-triangle"></i> <?php echo $errorMessage; ?>
                     </div>
                     <!--error-alert-->
                     <?php } ?>

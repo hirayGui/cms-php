@@ -153,13 +153,13 @@ $space = $database->freeSpace();
                 <div class="col-md-9">
                     <?php if (isset($_GET['success'])) { ?>
                     <div id="success-alert" class="alert alert-success col-md-12">
-                        <?php echo $_GET['success']; ?>
+                        <i class="bi bi-check-lg"></i> <?php echo $_GET['success']; ?>
                     </div>
                     <!--success-alert-->
                     <?php } ?>
                     <?php if (isset($_GET['error'])) { ?>
                     <div id="error-alert" class="alert alert-danger col-md-12">
-                        <?php echo $_GET['error']; ?>
+                        <i class="bi bi-exclamation-triangle"></i> <?php echo $_GET['error']; ?>
                     </div>
                     <!--error-alert-->
                     <?php } ?>

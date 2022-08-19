@@ -144,13 +144,13 @@ $space = $database->freeSpace();
                 <div class="col-md-9">
                     <?php if (isset($_GET['success'])) { ?>
                     <div id="success-alert" class="alert alert-success col-md-12">
-                        <?php echo $_GET['success']; ?>
+                        <i class="bi bi-check-lg"></i> <?php echo $_GET['success']; ?>
                     </div>
                     <!--success-alert-->
                     <?php } ?>
                     <?php if (isset($_GET['error'])) { ?>
                     <div id="error-alert" class="alert alert-danger col-md-12">
-                        <?php echo $_GET['error']; ?>
+                        <i class="bi bi-exclamation-triangle"></i> <?php echo $_GET['error']; ?>
                     </div>
                     <!--error-alert-->
                     <?php } ?>
@@ -184,9 +184,12 @@ $space = $database->freeSpace();
                                     <?php
                                         while ($rows = mysqli_fetch_assoc($result)) { ?>
                                     <tr>
-                                        <td><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>"
-                                                alt="<?php echo ucfirst($rows['ds_description']) ?>"
-                                                class="img-thumbnail"></td>
+                                        <td><a target="_blank"
+                                                href='data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>'><img
+                                                    src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>"
+                                                    alt="<?php echo ucfirst($rows['ds_description']) ?>"
+                                                    class="img-thumbnail img-fluid rounded" style='width:100px'></a>
+                                        </td>
                                         <td><?php echo ucfirst($rows['ds_title']) ?></td>
                                         <td><?php echo ucfirst($rows['category']) ?></td>
                                         <?php if ($rows['ds_status'] === "não publicado") { ?>
