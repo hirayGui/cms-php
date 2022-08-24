@@ -164,25 +164,28 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                     </div>
                     <!--error-alert-->
                     <?php } ?>
-                    <form action="#" method="post" id="createUser" role="form" class="card">
+                    <form action="#" method="post" id="createUser" role="form" class="card needs-validation" novalidate>
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-12 form-floating">
                                     <input type="text" name="name" id="name" placeholder="Informe o nome"
                                         class="form-control" required>
                                     <label for="name">Nome</label>
+                                    <div class="invalid-feedback">Nome inválido!</div>
                                 </div>
                                 <!--col-12-->
                                 <div class="col-md-6 form-floating">
                                     <input type="email" name="email" id="email" placeholder="Informe o email"
                                         class="form-control" required>
                                     <label for="email">Email</label>
+                                    <div class="invalid-feedback">Formato de email inválido!</div>
                                 </div>
                                 <!--col-md-6-->
                                 <div class="col md-6 form-floating">
                                     <input type="password" name="password" id="password" placeholder="Informe a senha"
                                         class="form-control" required>
                                     <label for="email">Senha</label>
+                                    <div class="invalid-feedback">Senha inválida!</div>
                                 </div>
                                 <!--col-md-6-->
                                 <div class="col-md-6 form-floating">
@@ -245,6 +248,27 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     <!--Importing scripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script>
+    (function() {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+    </script>
 
 </body>
 

@@ -176,7 +176,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                     <?php if (mysqli_num_rows($resultUser)) {
                         $rows = mysqli_fetch_assoc($resultUser);
                     ?>
-                    <form action="" method="post" id="editUser" role="form" class="card">
+                    <form action="#" method="post" id="editUser" role="form" class="card needs-validation" novalidate>
                         <div class="card-body">
 
                             <div class="row g-3">
@@ -184,18 +184,21 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                                     <input type="text" name="name" id="name" placeholder="Informe o nome"
                                         class="form-control" value='<?php echo $rows['ds_name'] ?>' required>
                                     <label for="name">Nome</label>
+                                    <div class="invalid-feedback">Nome inválido!</div>
                                 </div>
                                 <!--col-12-->
                                 <div class="col-md-6 form-floating">
                                     <input type="email" name="email" id="email" placeholder="Informe o email"
                                         class="form-control" value='<?php echo $rows['ds_email'] ?>' required>
                                     <label for="email">Email</label>
+                                    <div class="invalid-feedback">Formato de email inválido!</div>
                                 </div>
                                 <!--col-md-6-->
                                 <div class="col md-6 form-floating">
                                     <input type="password" name="password" id="password" placeholder="Informe a senha"
                                         class="form-control" value='<?php echo $rows['ds_password'] ?>' required>
                                     <label for="email">Senha</label>
+                                    <div class="invalid-feedback">Senha inválida!</div>
                                 </div>
                                 <!--col-md-6-->
                                 <div class="col-md-6 form-floating">
