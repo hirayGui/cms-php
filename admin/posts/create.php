@@ -17,7 +17,6 @@ if (!$user->loggedIn()) {
 }
 
 $errorMessage = '';
-$users = $user->listUsers();
 $categories = $category->listCategories();
 $usersCount = $user->listUsersNumber();
 $postsCount = $post->listPostsNumber();
@@ -131,10 +130,10 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                         <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-file-earmark"></i> Páginas <span
                                 class="badge text-bg-secondary">3</span></a>
-                        <a href="../posts/index.php" class="list-group-item list-group-item-action"><i
+                        <a href="index.php" class="list-group-item list-group-item-action  active main-color-bg"><i
                                 class="bi bi-newspaper"></i> Posts <span
                                 class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
-                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
+                        <a href="../users/index.php" class="list-group-item list-group-item-action"
                             aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span
                                 class="badge text-bg-secondary"><?php echo $usersCount; ?></span></a>
                     </div>
@@ -201,9 +200,9 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                                     <label for="body"></label>
                                 </div>
                                 <!--col-12-->
-                                <div class="col-12">
-                                    <label for="image">Imagem</label><br>
-                                    <input type="file" name="image" id="image">
+                                <div class="col-12 input-group">
+                                    <label for="image" class="input-group-text">Imagem</label>
+                                    <input type="file" name="image" id="image" class="form-control">
                                 </div>
                                 <!--col-12-->
 

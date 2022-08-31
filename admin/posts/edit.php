@@ -2,55 +2,88 @@
 include_once '../../config/Database.php';
 include_once '../../class/User.php';
 include_once '../../class/Post.php';
+include_once '../../class/Category.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
 $post = new Post($db);
+$category = new Category($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
 
-if (!$user->isAdmin()) {
-    header('Location: index.php?error=Você não tem permissão para realizar esta ação!');
-}
-
 if (isset($_GET['id'])) {
-    $user->id = $_GET['id'];
-    $resultUser = $user->selectUser();
+    $post->id = $_GET['id'];
+    $resultPost = $post->selectPost();
 } else {
-    header('Location: index.php?error=Ocorreu um erro ao tentar editar usuário!');
+    header('Location: index.php?error=Ocorreu um erro ao tentar editar post!');
 }
 
+$errorMessage = '';
+$categories = $category->listCategories();
 $usersCount = $user->listUsersNumber();
 $postsCount = $post->listPostsNumber();
 
-$errorMessage = '';
-
 $space = $database->freeSpace();
 
-//Updating user
-if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['role']) && isset($_POST['status'])) {
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['role']) && !empty($_POST['status'])) {
-        $user->id = $_POST['id'];
-        $user->name = $_POST['name'];
-        $user->email = $_POST['email'];
-        $user->password = $_POST['password'];
-        $user->role = $_POST['role'];
-        $user->status = $_POST['status'];
-        if ($user->update()) {
-            header('Location: index.php?success=Usuário editado com sucesso!');
+//creating post
+if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['imgDescription']) && isset($_POST['category']) && isset($_POST['status'])) {
+
+    if (!empty($_POST['title']) && !empty($_POST['body']) && !empty($_POST['category']) && !empty($_POST['status'])) {
+
+        if (!empty($_FILES["image"]["name"]) && !empty($_POST['imgDescription'])) {
+            //getting file info
+            $fileName = basename($_FILES["image"]["name"]);
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+            //allowing certain file type
+            $allowTypes = array('jpg', 'jpeg', 'png', 'gif');
+            if (in_array($fileType, $allowTypes)) {
+                $image = $_FILES["image"]["tmp_name"];
+                $imgContent = addslashes(file_get_contents($image));
+
+                $post->imgContent = $imgContent;
+                $post->imgDescription = $_POST['imgDescription'];
+
+                if ($post->imgInsert()) {
+                    $post->title = $_POST['title'];
+                    $post->body = $_POST['body'];
+                    $post->category = $_POST['category'];
+                    $post->status = $_POST['status'];
+                    $post->author = $_SESSION['userid'];
+
+                    if ($post->edit()) {
+                        header('Location: index.php?success=Post editado com sucesso!');
+                    } else {
+                        $errorMessage = 'Não foi possível editar post!';
+                    }
+                } else {
+                    $errorMessage = 'Não foi possível salvar imagem!';
+                }
+            }
         } else {
-            $errorMessage = 'Ocorreu um erro!';
+            if (mysqli_num_rows($resultPost)) {
+                $row = mysqli_fetch_assoc($resultPost);
+
+                $post->title = $_POST['title'];
+                $post->body = $_POST['body'];
+                $post->category = $_POST['category'];
+                $post->status = $_POST['status'];
+                $post->author = $_SESSION['userid'];
+                $post->imgContent = $row['ds_image'];
+                if ($post->edit()) {
+                    header('Location: index.php?success=Post editado com sucesso!');
+                } else {
+                    $errorMessage = 'Não foi possível editar post!';
+                }
+            }
         }
-    } else {
-        $errorMessage = "Favor preencher todos os campos!";
     }
 }
-
 ?>
 
 <!doctype html>
@@ -60,7 +93,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Painel de Controle | Editar usuário</title>
+    <title>Painel de Controle | Editar post</title>
 
     <!--Importing Bootstrap-->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -71,6 +104,9 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
 
     <!--Importing custom styles-->
     <link href="../../css/styles.css" rel="stylesheet" type="text/css">
+
+    <!--Importing custom textarea-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
 
 
 </head>
@@ -85,7 +121,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
-                    <h1><i class="bi bi-people-fill"> </i>Usuários</h1>
+                    <h1><i class="bi bi-newspaper"></i> Posts </h1>
                 </div>
                 <!--col-md-10-->
             </div>
@@ -100,8 +136,8 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
         <nav style="--bs-breadcrumb-divider: '->';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page"><a href="../home.php">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="index.php">Usuários</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Editar usuário</li>
+                <li class="breadcrumb-item" aria-current="page"><a href="index.php">Posts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Editar post</li>
             </ol>
         </nav>
         <!--breadcrumb-->
@@ -121,10 +157,10 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                         <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-file-earmark"></i> Páginas <span
                                 class="badge text-bg-secondary">3</span></a>
-                        <a href="../posts/index.php" class="list-group-item list-group-item-action"><i
+                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"><i
                                 class="bi bi-newspaper"></i> Posts <span
                                 class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
-                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
+                        <a href="../users/index.php" class="list-group-item list-group-item-action"
                             aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span
                                 class="badge text-bg-secondary"><?php echo $usersCount; ?></span></a>
                     </div>
@@ -167,85 +203,102 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                 </div>
                 <!--col-md-3-->
                 <div class="col-md-9">
-                    <h3>Editar usuário</h3>
+                    <h3>Editar post</h3>
                     <?php if ($errorMessage != '') { ?>
                     <div id="error-alert" class="alert alert-danger col-sm-12">
                         <i class="bi bi-exclamation-triangle"></i> <?php echo $errorMessage; ?>
                     </div>
                     <!--error-alert-->
                     <?php } ?>
-                    <?php if (mysqli_num_rows($resultUser)) {
-                        $rows = mysqli_fetch_assoc($resultUser);
-                    ?>
-                    <form action="#" method="post" id="editUser" role="form" class="card needs-validation" novalidate>
+                    <?php if (mysqli_num_rows($resultPost)) {
+                        $row = mysqli_fetch_assoc($resultPost); ?>
+                    <form action="#" method="post" id="createPost" role="form" class="card"
+                        enctype="multipart/form-data">
                         <div class="card-body">
-
                             <div class="row g-3">
                                 <div class="col-12 form-floating">
-                                    <input type="text" name="name" id="name" placeholder="Informe o nome"
-                                        class="form-control" value='<?php echo $rows['ds_name'] ?>' required>
-                                    <label for="name">Nome</label>
-                                    <div class="invalid-feedback">Nome inválido!</div>
+                                    <input type="text" name="title" id="title" placeholder="Informe o título"
+                                        class="form-control" required value="<?php echo $row['ds_title'] ?>">
+                                    <label for="name">Título</label>
                                 </div>
                                 <!--col-12-->
-                                <div class="col-md-6 form-floating">
-                                    <input type="email" name="email" id="email" placeholder="Informe o email"
-                                        class="form-control" value='<?php echo $rows['ds_email'] ?>' required>
-                                    <label for="email">Email</label>
-                                    <div class="invalid-feedback">Formato de email inválido!</div>
+                                <div class="col-12 form-floating">
+                                    <textarea id="editor" type="text" class="form-control" name="body"
+                                        placeholder="Corpo da postagem">
+                                        <?php echo $row['ds_body'] ?>
+                                    </textarea>
+                                    <label for="body"></label>
                                 </div>
-                                <!--col-md-6-->
-                                <div class="col md-6 form-floating">
-                                    <input type="password" name="password" id="password" placeholder="Informe a senha"
-                                        class="form-control" value='<?php echo $rows['ds_password'] ?>' required>
-                                    <label for="email">Senha</label>
-                                    <div class="invalid-feedback">Senha inválida!</div>
+                                <!--col-12-->
+                                <div class="col-12 input-group">
+                                    <label for="image" class="input-group-text">Imagem</label>
+                                    <input type="file" name="image" id="image" class="form-control">
                                 </div>
-                                <!--col-md-6-->
+                                <!--col-12-->
+
+                                <div class="col-12">
+                                    <p>Imagem atual</p>
+                                    <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['ds_image']); ?>"
+                                        alt="<?php echo $row['ds_description'] ?>" class="img-fluid rounded"
+                                        style='width: 336px; height: auto'>
+                                </div>
+                                <!--col-12-->
+
+                                <div class="col-12 form-floating">
+                                    <input type="text" name="imgDescription" id="imgDescription"
+                                        placeholder="Informe a descrição da imagem" class="form-control"
+                                        value="<?php echo $row['ds_description'] ?>">
+                                    <label for="imgDescription">Descrição da imagem</label>
+                                </div>
+                                <!--col-12-->
+
+                                <?php if (mysqli_num_rows($categories)) { ?>
                                 <div class="col-md-6 form-floating">
                                     <select class="form-select" aria-label=".form-select-lg example"
-                                        placeholder=" Escolha o tipo de usuário" id="role" name="role">
-                                        <?php if ($rows['ds_role'] == 'user') { ?>
-                                        <option value="user" selected>Usuário (padrão)</option>
-                                        <option value="admin">Administrador</option>
+                                        placeholder=" Escolha a categoria" id="category" name="category">
+                                        <?php while ($rows = mysqli_fetch_assoc($categories)) {
+                                                    if ($rows['id_category'] == $row['id_category']) { ?>
+                                        <option selected value="<?php echo $rows['id_category'] ?>">
+                                            <?php echo $rows['ds_name'] ?></option>
+
                                         <?php } else { ?>
-                                        <option value="user">Usuário (padrão)</option>
-                                        <option value="admin" selected>Administrador</option>
-                                        <?php } ?>
+
+                                        <option value="<?php echo $rows['id_category'] ?>">
+                                            <?php echo $rows['ds_name'] ?></option>
+                                        <?php }
+                                                } ?>
                                     </select>
-                                    <label>Tipo de usuário</label>
+                                    <label>Categoria</label>
                                 </div>
                                 <!--col-md-6-->
+                                <?php } ?>
                                 <div class="col-md-4"><label>Status</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" id="status"
-                                            <?php if ($rows['ds_status'] == 'ativo') { ?> checked<?php } ?>
-                                            value="ativo">
+                                            <?php if ($row['ds_status'] == 'publicado') { ?> checked <?php } ?>
+                                            value="publicado">
                                         <label class="form-check-label" for="status">
-                                            Ativo
+                                            Publicado
                                         </label>
                                     </div>
                                     <!--form-check-->
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" id="status"
-                                            <?php if ($rows['ds_status'] == 'inativo') { ?> checked<?php } ?>
-                                            value="inativo">
+                                            <?php if ($row['ds_status'] == 'não publicado') { ?> checked <?php } ?>
+                                            value="não publicado">
                                         <label class="form-check-label" for="status">
-                                            Inativo
+                                            Não publicado
                                         </label>
                                     </div>
                                     <!--form-check-->
-                                    <div class="col-12">
-                                        <input type="text" name="id" id="id" class="form-control" hidden
-                                            value='<?php echo $rows['id_user'] ?>'>
-                                    </div>
                                 </div>
                                 <!--col-md-4-->
                                 <div class="col-md-2"></div>
                                 <!--col-md-2-->
                                 <div class="col-12">
-                                    <input type="submit" value="Atualizar" class="btn btn-primary main-color-bg"> <a
-                                        href="index.php" class="btn btn-outline-dark">Voltar</a>
+                                    <input type="submit" name='submit' value="Atualizar"
+                                        class="btn btn-primary main-color-bg"> <a href="index.php"
+                                        class="btn btn-outline-dark">Voltar</a>
                                 </div>
                             </div>
                             <!--row g-3-->
@@ -274,6 +327,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     <!--Importing scripts-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/scripts.js"></script>
 
 </body>
 

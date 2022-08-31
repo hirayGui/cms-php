@@ -22,10 +22,18 @@ if (isset($_GET['id'])) {
     if (!empty($_GET['id'])) {
         $post->id = $_GET['id'];
 
-        if ($post->delete()) {
-            header('Location: index.php?success=Post deletado com sucesso!');
+        $resultPost = $post->selectPost();
+        if (mysqli_num_rows($resultPost)) {
+            $row = mysqli_fetch_assoc($resultPost);
+
+            $post->imageId = $row['id_image'];
+            if ($post->delete()) {
+                header('Location: index.php?success=Post deletado com sucesso!');
+            } else {
+                header('Location: index.php?error=Ocorreu um erro ao tentar deletar post!');
+            }
         } else {
-            header('Location: index.php?error=Ocorreu um erro ao tentar deletar post!');
+            header('Location: index.php?error=Ocorreu um erro ao consultar post!');
         }
     }
 } else {
