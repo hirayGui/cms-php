@@ -14,11 +14,19 @@ if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
 
-$result = $user->listUsers();
+if (isset($_GET['search'])) {
+    $user->search = $_GET['search'];
+    $result = $user->listUsers();
+} else {
+    $result = $user->listUsers();
+}
+
 $usersCount = $user->listUsersNumber();
 $postsCount = $post->listPostsNumber();
 
 $space = $database->freeSpace();
+
+
 ?>
 
 <!doctype html>
@@ -171,8 +179,21 @@ $space = $database->freeSpace();
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="Filtrar usuários" id="search"
-                                        onblur="search()">
+                                    <form method="get" id="searchUser" role="form">
+                                        <div class="row g-3">
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control" placeholder="Filtrar usuários"
+                                                    id="search" name="search" value="<?php echo $user->search ?>">
+                                            </div>
+                                            <!--col-md-11-->
+                                            <div class="col-md-1">
+                                                <button type="submit" class="btn main-color-bg" value="search"
+                                                    id="searchBtn"><i class="bi bi-search"></i></button>
+                                            </div>
+                                            <!--col-md-1-->
+                                        </div>
+                                        <!--row g-3-->
+                                    </form>
                                 </div>
                                 <!--col-md-12-->
                             </div>

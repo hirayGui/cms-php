@@ -84,10 +84,10 @@ class User
     {
         $sqlQuery = 'SELECT id_user, ds_name, ds_email, ds_password, ds_role, ds_status FROM ' . $this->userTable . " ";
 
-        if (!empty($_POST['search']['value'])) {
-            $sqlQuery .= 'WHERE (id_user LIKE "%' . $_POST['search']['value'] . '%" ';
-            $sqlQuery .= 'OR ds_name LIKE "%' . $_POST['search']['value'] . '%" ';
-            $sqlQuery .= 'OR ds_email LIKE "%' . $_POST['search']['value'] . '%" ';
+        if (!empty($this->search)) {
+            $sqlQuery .= 'WHERE id_user LIKE "%' . $this->search . '%" ';
+            $sqlQuery .= 'OR ds_name LIKE "%' . $this->search . '%" ';
+            $sqlQuery .= 'OR ds_email LIKE "%' . $this->search . '%" ';
         }
 
         $stmt = $this->conn->prepare($sqlQuery);
@@ -99,7 +99,7 @@ class User
 
     public function listUsersNumber()
     {
-        $sqlQuery = 'SELECT id_user, ds_name, ds_email, ds_password, ds_role, ds_status FROM ' . $this->userTable . " ";
+        $sqlQuery = 'SELECT id_user FROM ' . $this->userTable . " ";
 
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute();
