@@ -13,7 +13,7 @@ class Post
     public function selectPost()
     {
         if ($this->id) {
-            $sqlQuery = 'SELECT p.ds_title, p.ds_body, p.ds_status, p.id_user, p.id_category, p.id_image, i.ds_image, i.ds_description FROM ' . $this->postTable . ' p INNER JOIN tb_images i ON i.id_image = p.id_image WHERE p.id_post = ?;';
+            $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body, DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, DATE_FORMAT(p.dt_updated, "%e %b %Y às %H:%i") as dt_updated, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" AND p.id_post = ? ORDER BY p.dt_created DESC';
 
             $stmt = $this->conn->prepare($sqlQuery);
             $stmt->bind_param('i', $this->id);
@@ -87,7 +87,6 @@ class Post
                 if ($imageId > 0) {
                     $stmt = $this->conn->prepare('INSERT INTO ' . $this->postTable . ' (ds_title, ds_body, ds_status, id_user, id_category, id_image) VALUES (?, ?, ?, ?, ?, ?)');
                     $this->title = htmlspecialchars(strip_tags($this->title));
-                    $this->body = htmlspecialchars(strip_tags($this->body));
                     $this->status = htmlspecialchars(strip_tags($this->status));
                     $stmt->bind_param('sssiii', $this->title, $this->body, $this->status, $this->author, $this->category, $imageId);
 
@@ -133,7 +132,6 @@ class Post
                 if ($imageId > 0) {
                     $stmt = $this->conn->prepare('UPDATE ' . $this->postTable . ' SET ds_title = ?, ds_body = ?, ds_status = ?, id_user = ?, id_category = ?, id_image = ? WHERE id_post = ?');
                     $this->title = htmlspecialchars(strip_tags($this->title));
-                    $this->body = htmlspecialchars(strip_tags($this->body));
                     $this->status = htmlspecialchars(strip_tags($this->status));
                     $stmt->bind_param('sssiiii', $this->title, $this->body, $this->status, $this->author, $this->category, $imageId, $this->id);
 

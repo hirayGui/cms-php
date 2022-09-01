@@ -21,7 +21,7 @@ CREATE TABLE tb_categories(
 
 CREATE TABLE tb_posts(
 	id_post INT NOT NULL AUTO_INCREMENT,
-    ds_title VARCHAR(40) NOT NULL,
+    ds_title VARCHAR(255) NOT NULL,
     ds_body TEXT NOT NULL,
     dt_created TIMESTAMP NOT NULL DEFAULT current_timestamp,
     dt_updated TIMESTAMP NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,

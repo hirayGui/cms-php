@@ -1,3 +1,21 @@
+<?php
+include_once('config/Database.php');
+include_once('class/Post.php');
+
+$database = new Database();
+$db = $database->getConnection();
+$post = new Post($db);
+
+if (isset($_GET['id'])) {
+    if (!empty($_GET['id'])) {
+        $post->id = $_GET['id'];
+        $resultPost = $post->selectPost();
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -77,14 +95,18 @@
             </div>
         </nav>
     </section>
-
+    <?php if (mysqli_num_rows($resultPost)) {
+        $row = mysqli_fetch_assoc($resultPost); ?>
     <section data-bs-version="5.1" class="content4 cid-t6LazVBO9u" id="content4-0">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="title col-md-12 col-lg-10">
-                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2"><strong>[Título da
-                            postagem]</strong></h3>
-                    <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7">[data de postagem]</h4>
+                    <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
+                        <strong><?php echo $row['ds_title']; ?></strong>
+                    </h3>
+                    <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-7">
+                        Por <?php echo $row['author'] ?>.<br>
+                        Criado em <?php echo $row['dt_created'] ?>. Atualizado em <?php echo $row['dt_updated'] ?></h4>
                 </div>
             </div>
         </div>
@@ -95,8 +117,10 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10">
                     <div class="image-wrapper">
-                        <img src="assets/images/6.jpg" alt="Mobirise Website Builder">
-                        <p class="mbr-description mbr-fonts-style mt-2 align-center display-4">[Descrição]</p>
+                        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['ds_image']); ?>"
+                            alt="<?php echo $row['ds_description'] ?>">
+                        <p class="mbr-description mbr-fonts-style mt-2 align-center display-4">
+                            <?php echo $row['ds_description'] ?> </p>
                     </div>
                 </div>
             </div>
@@ -107,15 +131,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
-                    <p class="mbr-text mbr-fonts-style display-7">
-                        [corpo da postagem]<br>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum,
-                        dignissimos. Accusantium unde saepe eos ipsam, quae impedit a odit tempora nesciunt consectetur
-                        labore doloremque velit, dolor quasi soluta beatae maiores. Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Distinctio reiciendis, autem obcaecati labore soluta deserunt
-                        repudiandae nobis minima illo error omnis tenetur excepturi consequuntur debitis officia non
-                        quos. Asperiores, alias? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio
-                        quibusdam maiores quis magnam tenetur. Vel soluta asperiores inventore, minus fugit animi eum,
-                        tempore veritatis incidunt perferendis quos voluptate neque modi.<br></p>
+                    <div class="mbr-text mbr-fonts-style display-7">
+                        <?php echo $row['ds_body'] ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,6 +203,8 @@
             </div>
         </div>
     </section>
+
+    <?php } ?>
 
     <section data-bs-version="5.1" class="footer3 cid-sFCygHrmNf" once="footers" id="footer3-24">
         <div class="container">

@@ -221,7 +221,7 @@ $posts = $post->listLastPublishedPosts();
                                 <?php echo substr_replace($rows['ds_body'], ' ...', 75); ?></p>
                         </div>
                         <div class="mbr-section-btn item-footer mt-2"><a
-                                href="post.html?id=<?php echo $rows['id_post'] ?>"
+                                href="post.php?id=<?php echo $rows['id_post'] ?>"
                                 class="btn item-btn btn-primary display-4">Continuar lendo
                             </a></div>
                     </div>
