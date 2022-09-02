@@ -14,8 +14,8 @@ if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
 
-if (isset($_GET['search'])) {
-    $user->search = $_GET['search'];
+if (isset($_POST['search'])) {
+    $user->search = $_POST['search'];
     $result = $user->listUsers();
 } else {
     $result = $user->listUsers();
@@ -179,11 +179,14 @@ $space = $database->freeSpace();
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form method="get" id="searchUser" role="form">
+                                    <form method="post" id="searchUser" role="form">
                                         <div class="row g-3">
                                             <div class="col-md-11">
                                                 <input type="text" class="form-control" placeholder="Filtrar usuários"
-                                                    id="search" name="search" value="<?php echo $user->search ?>">
+                                                    id="search" name="search"
+                                                    value="<?php if (!empty($_POST['search']['value'])) {
+                                                                                                                                                            echo $_POST['search'];
+                                                                                                                                                        } ?>">
                                             </div>
                                             <!--col-md-11-->
                                             <div class="col-md-1">
@@ -264,7 +267,7 @@ $space = $database->freeSpace();
     <!--main-->
 
     <!--Footer-->
-    <footer id="footer" class="absolute-bottom">
+    <footer id="footer" class="footer py-3 fixed-bottom">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>

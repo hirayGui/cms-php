@@ -262,7 +262,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     <!--main-->
 
     <!--Footer-->
-    <footer id="footer" class="absolute-bottom">
+    <footer id="footer" class="absolute-bottom footer py-3">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
