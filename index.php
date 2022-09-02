@@ -214,11 +214,12 @@ $posts = $post->listLastPublishedPosts();
                         </div>
                         <div class="item-content">
                             <h5 class="item-title mbr-fonts-style display-5">
-                                <strong><?php echo $rows['ds_title'] ?></strong>
+                                <strong><?php echo substr_replace($rows['ds_title'], '...', 20) ?></strong>
                             </h5>
 
-                            <p class="mbr-text mbr-fonts-style mt-3 display-7">
-                                <?php echo substr_replace($rows['ds_body'], ' ...', 75); ?></p>
+                            <div class="mbr-text mbr-fonts-style mt-3 display-7">
+                                <?php echo substr_replace($rows['ds_body'], ' ...', 75); ?>
+                            </div>
                         </div>
                         <div class="mbr-section-btn item-footer mt-2"><a
                                 href="post.php?id=<?php echo $rows['id_post'] ?>"
@@ -252,8 +253,6 @@ $posts = $post->listLastPublishedPosts();
                             <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
                                 <strong>Estagiário</strong>
                             </h6>
-                            <p class="card-text mbr-fonts-style align-center display-7">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
                     </div>
                 </div>
@@ -270,9 +269,6 @@ $posts = $post->listLastPublishedPosts();
                             <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
                                 <strong>Presidenta</strong>
                             </h6>
-                            <p class="card-text mbr-fonts-style align-center display-7">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -287,9 +283,6 @@ $posts = $post->listLastPublishedPosts();
                                 <strong>James Swift</strong>
                             </h5>
                             <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4"><strong>Sócio</strong></h6>
-                            <p class="card-text mbr-fonts-style align-center display-7">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -306,9 +299,6 @@ $posts = $post->listLastPublishedPosts();
                             <h6 class="mbr-role mbr-fonts-style align-center mb-3 display-4">
                                 <strong>Sócio-Líder</strong>
                             </h6>
-                            <p class="card-text mbr-fonts-style align-center display-7">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </p>
                         </div>
                     </div>
                 </div>
