@@ -47,90 +47,70 @@ if (isset($_POST['login']) && isset($_POST['email']) && isset($_POST['password']
 
     <!--Importing custom styles-->
     <link href="../css/styles.css" rel="stylesheet" type="text/css">
+    <style>
+    body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    #main {
+        padding: 15px;
+        max-width: 330px;
+    }
+
+    #email {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    #password {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    </style>
 </head>
 
-<body>
+<body class="text-center">
 
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-md navbar-default">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Painel de Controle</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
-                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!--navbar-toggler-->
 
-            <!--Navbar items-->
-            <div class="collapse navbar-collapse" id="navbar">
-            </div>
-            <!--collapse navbar-nav-->
-        </div>
-        <!--container-fluid-->
-    </nav>
-    <!--navbar navbar-expand-md-->
-
-    <!--Main message-->
-    <header id="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-center"></i>Painel de Controle <small>Login</small></h1>
-                </div>
-                <!--col-md-10-->
-            </div>
-            <!--row-->
-        </div>
-        <!--container-->
-    </header>
-    <!--header-->
 
     <!--Main section-->
-    <section id="main">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 offset-md-4">
-                    <h3>Login</h3>
-                    <?php if ($loginMessage != '') { ?>
-                    <div id="login-alert" class="alert alert-danger col-sm-12">
-                        <?php echo $loginMessage; ?>
-                    </div>
-                    <!--login-alert-->
-                    <?php } ?>
-                    <form method="POST" id="login" class="well" action="" role="form">
-                        <div class="form-floating">
-                            <input required type="text" class="form-control" placeholder="Insira seu email" name="email"
-                                value='<?php if (!empty($_POST["email"])) {
+    <section id="main" class="w-100 m-auto">
+        <h3 class="mb-3 fw-normal">Login</h3>
+        <?php if ($loginMessage != '') { ?>
+        <div id="login-alert" class="alert alert-danger col-sm-12">
+            <?php echo $loginMessage; ?>
+        </div>
+        <!--login-alert-->
+        <?php } ?>
+        <form method="POST" id="login" class="well" action="" role="form">
+            <div class="form-floating">
+                <input required type="text" class="form-control" placeholder="Insira seu email" name="email" id="email"
+                    value='<?php if (!empty($_POST["email"])) {
                                                                                                                                     echo $_POST["email"];
                                                                                                                                 } ?>'>
-                            <label for="email">Email</label>
-                        </div>
-                        <br>
-                        <!--form-floating-->
-                        <div class="form-floating">
-                            <input required type="password" class="form-control" placeholder="Insira sua senha"
-                                name="password"
-                                value='<?php if (!empty($_POST["password"])) {
-                                                                                                                                            echo $_POST["password"];
-                                                                                                                                        } ?>'>
-                            <label for="password">Senha</label>
-                        </div>
-                        <!--form-floating-->
-                        <br>
-                        <div class="d-grid gap-4 col-12 mx-auto">
-                            <input type="submit" class="btn btn-primary btn-block main-color-bg" name="login"
-                                value="Login">
-                        </div>
-                        <!--d-grid gap-4 col-12 mx-auto-->
-
-                    </form>
-                    <!--login-->
-                </div>
-                <!--col-md-4 col-md-offset-4-->
+                <label for="email">Email</label>
             </div>
-            <!--row-->
-        </div>
-        <!--container-->
+            <!--form-floating-->
+            <div class="form-floating">
+                <input required type="password" class="form-control" placeholder="Insira sua senha" name="password"
+                    id="password"
+                    value='<?php if (!empty($_POST["password"])) {
+                                                                                                                                                echo $_POST["password"];
+                                                                                                                                            } ?>'>
+                <label for="password">Senha</label>
+            </div>
+            <!--form-floating-->
+            <br>
+            <div class="d-grid gap-4 col-12 mx-auto">
+                <input type="submit" class="w-100 btn btn-primary btn-block main-color-bg" name="login" value="Login">
+            </div>
+            <!--d-grid gap-4 col-12 mx-auto-->
+
+        </form>
+        <!--login-->
     </section>
     <!--main-->
 
