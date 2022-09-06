@@ -116,34 +116,6 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
     <!--Navbar-->
     <?php include '../navbar.php'; ?>
 
-    <!--Main message-->
-    <header id="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10">
-                    <h1><i class="bi bi-newspaper"></i> Posts </h1>
-                </div>
-                <!--col-md-10-->
-            </div>
-            <!--row-->
-        </div>
-        <!--container-->
-    </header>
-    <!--header-->
-
-    <!--Breadcrumb-->
-    <div class="container">
-        <nav style="--bs-breadcrumb-divider: '->';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item" aria-current="page"><a href="../home.php">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="index.php">Posts</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Editar post</li>
-            </ol>
-        </nav>
-        <!--breadcrumb-->
-    </div>
-    <!--container-->
-
     <!--Main section-->
     <section id="main">
         <div class="container">
@@ -152,7 +124,7 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                     <!--List group showing areas you can manage-->
                     <div class="list-group">
                         <a href="../home.php" class="list-group-item list-group-item-action">
-                            <i class="bi bi-house"></i> Home
+                            <i class="bi bi-house-fill"></i> Home
                         </a>
                         <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-file-earmark"></i> Páginas <span

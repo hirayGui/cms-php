@@ -26,7 +26,7 @@
                 </ul>
                 <ul class="navbar-right navbar-nav nav">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-secondary" href="../logout.php">Sair</a>
+                        <a class="nav-link btn btn-danger" href="../logout.php">Sair</a>
                     </li>
                 </ul>
             </div>

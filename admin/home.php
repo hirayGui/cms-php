@@ -75,7 +75,7 @@ $lastUsers = $user->listLastUsers();
                 </ul>
                 <ul class="navbar-right navbar-nav nav">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-secondary" href="logout.php">Sair</a>
+                        <a class=" btn btn-danger" href="logout.php">Sair</a>
                     </li>
                 </ul>
             </div>
@@ -84,32 +84,6 @@ $lastUsers = $user->listLastUsers();
         <!--container-fluid-->
     </nav>
     <!--navbar navbar-expand-md -->
-
-    <!--Main message-->
-    <header id="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10">
-                    <h1><i class="bi bi-house"> </i>Home - <small>Gerencie seu site</small></h1>
-                </div>
-                <!--col-md-10-->
-            </div>
-            <!--row-->
-        </div>
-        <!--container-->
-    </header>
-    <!--header-->
-
-    <!--Breadcrumb-->
-    <div class="container">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page"><a href="#">Home</a></li>
-            </ol>
-        </nav>
-        <!--breadcrumb-->
-    </div>
-    <!--container-->
 
     <!--Main section-->
     <section id="main">
@@ -120,10 +94,10 @@ $lastUsers = $user->listLastUsers();
                     <div class="list-group">
                         <a href="home.php" class="list-group-item list-group-item-action active main-color-bg"
                             aria-current="true">
-                            <i class="bi bi-house"></i> Home
+                            <i class="bi bi-house-fill"></i> Home
                         </a>
                         <a href="pages/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-file-earmark"></i> Páginas <span
+                                class="bi bi-file-earmark-fill"></i> Páginas <span
                                 class="badge text-bg-secondary">3</span></a>
                         <a href="posts/index.php" class="list-group-item list-group-item-action"><i
                                 class="bi bi-newspaper"></i> Posts <span
@@ -188,16 +162,7 @@ $lastUsers = $user->listLastUsers();
                                     <!--card dash-box-->
                                 </div>
                                 <!--col-md-3-->
-                                <div class="col-3 col-md-3">
-                                    <div class="card dash-box">
-                                        <div class="card-body">
-                                            <h2><i class="bi bi-file-earmark"></i> 3 </h2>
-                                            <h4>Páginas</h4>
-                                        </div>
-                                    </div>
-                                    <!--card dash-box-->
-                                </div>
-                                <!--col-md-3-->
+
                                 <div class="col-3 col-md-3">
                                     <div class="card dash-box">
                                         <div class="card-body">
@@ -208,10 +173,22 @@ $lastUsers = $user->listLastUsers();
                                     <!--card dash-box-->
                                 </div>
                                 <!--col-md-3-->
+
                                 <div class="col-3 col-md-3">
                                     <div class="card dash-box">
                                         <div class="card-body">
-                                            <h2><i class="bi bi-bar-chart-fill"></i> 22.356 </h2>
+                                            <h2><i class="bi bi-file-earmark-fill"></i> 3 </h2>
+                                            <h4>Páginas</h4>
+                                        </div>
+                                    </div>
+                                    <!--card dash-box-->
+                                </div>
+                                <!--col-md-3-->
+
+                                <div class="col-3 col-md-3">
+                                    <div class="card dash-box">
+                                        <div class="card-body">
+                                            <h2><i class="bi bi-bar-chart-fill"></i> 3K </h2>
                                             <h4>Visitantes</h4>
                                         </div>
                                     </div>
@@ -271,7 +248,7 @@ $lastUsers = $user->listLastUsers();
     <!--main-->
 
     <!--Footer-->
-    <footer id="footer" class="absolute-bottom footer py-3">
+    <footer id="footer" class="fixed-bottom footer py-3">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>

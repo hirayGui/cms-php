@@ -214,11 +214,11 @@ $posts = $post->listLastPublishedPosts();
                         </div>
                         <div class="item-content">
                             <h5 class="item-title mbr-fonts-style display-5">
-                                <strong><?php echo substr_replace($rows['ds_title'], '...', 20) ?></strong>
+                                <strong><?php echo mb_strimwidth(ucfirst($rows['ds_title']), 0, 25, '...') ?></strong>
                             </h5>
 
                             <div class="mbr-text mbr-fonts-style mt-3 display-7">
-                                <?php echo substr_replace($rows['ds_body'], ' ...', 75); ?>
+                                <?php echo mb_strimwidth(ucfirst($rows['ds_body']), 0, 75, '...'); ?>
                             </div>
                         </div>
                         <div class="mbr-section-btn item-footer mt-2"><a

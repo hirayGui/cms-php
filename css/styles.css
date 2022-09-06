@@ -5,20 +5,19 @@ body {
 
 /*Navbar*/
 .navbar {
-    min-height: 33px !important;
+    min-height: 30px !important;
     margin-bottom: 0;
     border-radius: 0;
 }
 
 .navbar-nav>li>a,
 .navbar-brand {
-    padding-top: 6px !important;
     padding-bottom: 0 !important;
     height: 33px;
 }
 
 .navbar {
-    background-color: #c74c3c;
+    background-color: #333333;
 }
 
 .navbar .navbar-brand {
@@ -27,7 +26,7 @@ body {
 
 .navbar .navbar-brand:hover,
 .navbar .navbar-brand:focus {
-    color: #ffbbbc;
+    color: #575656;
 }
 
 .navbar .navbar-text {
@@ -35,12 +34,12 @@ body {
 }
 
 .navbar .navbar-text a {
-    color: #ffbbbc;
+    color: #575656;
 }
 
 .navbar .navbar-text a:hover,
 .navbar .navbar-text a:focus {
-    color: #ffbbbc;
+    color: #575656;
 }
 
 .navbar .navbar-nav .nav-link {
@@ -51,7 +50,7 @@ body {
 
 .navbar .navbar-nav .nav-link:not(.disabled):hover,
 .navbar .navbar-nav .nav-link:not(.disabled):focus {
-    color: #ffbbbc;
+    color: #575656;
 }
 
 .navbar .navbar-nav .nav-item.active .nav-link,
@@ -60,17 +59,17 @@ body {
 .navbar .navbar-nav .nav-item.show .nav-link,
 .navbar .navbar-nav .nav-item.show .nav-link:hover,
 .navbar .navbar-nav .nav-item.show .nav-link:focus {
-    color: #ffbbbc;
-    background-color: #c0392b;
+    color: #575656;
+    background-color: #333333;
 }
 
 .navbar .navbar-toggler {
-    border-color: #c0392b;
+    border-color: #333333;
 }
 
 .navbar .navbar-toggler:hover,
 .navbar .navbar-toggler:focus {
-    background-color: #c0392b;
+    background-color: #333333;
 }
 
 .navbar .navbar-toggler .navbar-toggler-icon {
@@ -87,11 +86,10 @@ body {
 }
 
 .navbar .navbar-link:hover {
-    color: #ffbbbc;
+    color: #575656;
 }
 
-.navbar-nav .nav-item a.nav-link.btn-secondary:hover {
-    background-color: #333333;
+.navbar-nav .nav-item a.nav-link.btn-danger:hover {
     color: white;
 }
 
@@ -108,10 +106,6 @@ body {
     color: white;
     padding-bottom: 10px;
     margin-bottom: 15px;
-}
-
-#header .create {
-    padding-top: 20px;
 }
 
 /*Breadcrumb*/
@@ -149,6 +143,9 @@ body {
     margin-top: 30px;
 }
 
+#main {
+    padding-top: 5px;
+}
 
 
 
@@ -168,12 +165,12 @@ body {
 
     .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
     .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-        color: #ffbbbc;
+        color: #575656;
     }
 
     .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
-        color: #ffbbbc;
-        background-color: #c0392b;
+        color: #575656;
+        background-color: #333333;
     }
 }
 
@@ -184,12 +181,12 @@ body {
 
     .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
     .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-        color: #ffbbbc;
+        color: #575656;
     }
 
     .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
-        color: #ffbbbc;
-        background-color: #c0392b;
+        color: #575656;
+        background-color: #333333;
     }
 }
 
@@ -200,12 +197,12 @@ body {
 
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-        color: #ffbbbc;
+        color: #575656;
     }
 
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
-        color: #ffbbbc;
-        background-color: #c0392b;
+        color: #575656;
+        background-color: #333333;
     }
 }
 
@@ -216,12 +213,12 @@ body {
 
     .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
     .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-        color: #ffbbbc;
+        color: #575656;
     }
 
     .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
-        color: #ffbbbc;
-        background-color: #c0392b;
+        color: #575656;
+        background-color: #333333;
     }
 }
 
@@ -231,10 +228,10 @@ body {
 
 .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
 .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-    color: #ffbbbc;
+    color: #575656;
 }
 
 .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
-    color: #ffbbbc;
-    background-color: #c0392b;
+    color: #575656;
+    background-color: #333333;
 }
