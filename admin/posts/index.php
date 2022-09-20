@@ -18,6 +18,7 @@ $usersCount = $user->listUsersNumber();
 $resultNumber = $post->listPostsNumber();
 $space = $database->freeSpace();
 
+//pagination
 $resultsPerPage = 5;
 
 $pageNumber = ceil($resultNumber / $resultsPerPage);
@@ -33,7 +34,13 @@ $pageFirstResult = ($page - 1) * $resultsPerPage;
 $post->pageFirstResult = $pageFirstResult;
 $post->resultsPerPage = $resultsPerPage;
 
-$result = $post->showLimitedPosts();
+$result = $post->listPosts();
+
+//search field
+if (isset($_POST['search'])) {
+    $post->search = $_POST['search'];
+    $result = $post->listPosts();
+}
 
 ?>
 
@@ -152,9 +159,23 @@ $result = $post->showLimitedPosts();
                             <!--row-->
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                        <div class="row">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="Filtrar posts">
+                                    <form method="post" id="searchPost" role="form">
+                                        <div class="row g-3">
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control" placeholder="Filtrar posts" id="search" name="search" value="<?php if (!empty($_POST['search']['value'])) {
+                                                                                                                                                            echo $_POST['search'];
+                                                                                                                                                        } ?>">
+                                            </div>
+                                            <!--col-md-11-->
+                                            <div class="col-md-1">
+                                                <button type="submit" class="btn main-color-bg" value="search" id="searchBtn"><i class="bi bi-search"></i></button>
+                                            </div>
+                                            <!--col-md-1-->
+                                        </div>
+                                        <!--row g-3-->
+                                    </form>
                                 </div>
                                 <!--col-md-12-->
                             </div>
@@ -214,7 +235,7 @@ $result = $post->showLimitedPosts();
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item <?php if($page == 1 ){?>disabled<?php } ?>" >
-                                        <a href="index.php?page=<?php echo $page - 1?>" class="page-link"><i class="bi bi-caret-left-fill"></i></a><!--page-link-->
+                                        <a href="index.php?page=<?php echo $page - 1?>" class="page-link"><i class="bi bi-caret-left-fill"></i> Anterior</a><!--page-link-->
                                     </li><!--page-item-->
                                     <?php for($i = 1; ($i * $resultsPerPage) <= $resultNumber ; $i++){ ?>
                                         <li class="page-item <?php if($i == $page ){?>disabled<?php } ?>" >
@@ -222,7 +243,7 @@ $result = $post->showLimitedPosts();
                                         </li><!--page-item-->
                                     <?php } ?>
                                     <li class="page-item <?php if(($page * $resultsPerPage) >= $resultNumber){ ?>disabled<?php } ?>">
-                                        <a href="index.php?page=<?php echo $page + 1?>" class="page-link"><i class="bi bi-caret-right-fill"></i></a><!--page-link-->
+                                        <a href="index.php?page=<?php echo $page + 1?>" class="page-link">Próximo <i class="bi bi-caret-right-fill"></i></a><!--page-link-->
                                     </li><!--page-item-->
                                 </ul><!--pagination-justify-content-center-->
                             </nav><!--Page-navigation-->

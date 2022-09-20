@@ -26,7 +26,14 @@ class Post
 
     public function listPosts()
     {
-        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image ORDER BY p.dt_created DESC';
+        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image ';
+
+        if (!empty($this->search)) {
+            $sqlQuery .= ' WHERE p.id_post LIKE "%' . $this->search . '%" ';
+            $sqlQuery .= ' OR p.ds_title LIKE "%' . $this->search . '%" ';
+        }
+
+        $sqlQuery .=  ' ORDER BY p.dt_created DESC LIMIT ' . $this->pageFirstResult . ', ' . $this->resultsPerPage . " ";
 
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute();
