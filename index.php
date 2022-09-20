@@ -67,21 +67,21 @@ $posts = $post->listLastPublishedPosts();
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                        <li class="nav-item"><a class="nav-link link text-white display-4" href="index.html">Home</a>
+                        <li class="nav-item"><a class="nav-link link text-white display-4" href="index.php">Home</a>
                         </li>
                         <li class="nav-item"><a class="nav-link link text-white display-4"
-                                href="index.html#header14-1j">Sobre</a></li>
+                                href="index.php#header14-1j">Sobre</a></li>
                         <li class="nav-item"><a class="nav-link link text-white text-primary display-4"
-                                href="index.html#features3-1p">Notícias</a>
+                                href="posts.php">Notícias</a>
                         </li>
                         <li class="nav-item"><a class="nav-link link text-white display-4"
-                                href="index.html#contacts2-1r">Contato</a></li>
+                                href="index.php#contacts2-1r">Contato</a></li>
                     </ul>
                     <div class="icons-menu">
                         <a class="iconfont-wrapper" href="http://linkedin.com/businesscia" target="_blank">
                             <span class="p-2 mbr-iconfont socicon-linkedin socicon"></span>
                         </a>
-                        <a class="iconfont-wrapper" href="http://intagram.com/businesscia" target="_blank">
+                        <a class="iconfont-wrapper" href="http://intagram.com/businessciaadvogados" target="_blank">
                             <span class="p-2 mbr-iconfont socicon-instagram socicon"></span>
                         </a>
                     </div>
@@ -104,7 +104,7 @@ $posts = $post->listLastPublishedPosts();
                             empresarial e alivia as dores de cabeça do cliente, tomando conta de todos os trâmite legais
                             de sua empresa.</p>
                         <div class="mbr-section-btn mt-3"><a class="btn btn-primary display-4"
-                                href="index.html#header14-1j">Saiba mais</a></div>
+                                href="index.php#header14-1j">Saiba mais</a></div>
                     </div>
                 </div>
             </div>
@@ -418,11 +418,11 @@ $posts = $post->listLastPublishedPosts();
                     <ul class="foot-menu">
                         <li class="foot-menu-item mbr-fonts-style display-7"><a href="#top"
                                 class="text-white text-primary">Home</a></li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.html#header14-1j"
+                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#header14-1j"
                                 class="text-white">Sobre</a></li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.html#features3-1p"
+                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#features3-1p"
                                 class="text-white">Notícias</a></li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.html#contacts2-1r"
+                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#contacts2-1r"
                                 class="text-white">Contato</a></li>
                     </ul>
                 </div>
@@ -445,7 +445,7 @@ $posts = $post->listLastPublishedPosts();
 
                         </div>
                         <div class="soc-item">
-                            <a href="http://instagram.com/businesscia" target="_blank">
+                            <a href="http://instagram.com/businessciaadvogados" target="_blank">
                                 <span class="mbr-iconfont mbr-iconfont-social socicon-instagram socicon"></span>
                             </a>
                         </div>

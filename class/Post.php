@@ -57,6 +57,17 @@ class Post
         return $result;
     }
 
+    public function showLimitedPosts()
+    {
+        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" ORDER BY p.dt_created DESC LIMIT ' . $this->pageFirstResult . ', ' . $this->resultsPerPage;
+
+        $stmt = $this->conn->prepare($sqlQuery);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
+    }
+
     public function listPostsNumber()
     {
         $sqlQuery = 'SELECT id_post FROM ' . $this->postTable;
