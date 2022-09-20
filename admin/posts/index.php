@@ -55,9 +55,15 @@ $space = $database->freeSpace();
                         <a href="../home.php" class="list-group-item list-group-item-action">
                             <i class="bi bi-house-fill"></i> Home
                         </a>
-                        <a href="../pages/index.php" class="list-group-item list-group-item-action"><i class="bi bi-file-earmark-fill"></i> Páginas <span class="badge text-bg-secondary">3</span></a>
-                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg" aria-current="true"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
-                        <a href="../users/index.php" class="list-group-item list-group-item-action"><i class="bi bi-people-fill"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
+                        <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
+                                class="bi bi-file-earmark-fill"></i> Páginas <span
+                                class="badge text-bg-secondary">3</span></a>
+                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg"
+                            aria-current="true"><i class="bi bi-newspaper"></i> Posts <span
+                                class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
+                        <a href="../users/index.php" class="list-group-item list-group-item-action"><i
+                                class="bi bi-people-fill"></i> Usuários <span
+                                class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
                     </div>
                     <!--list-group-->
                     <br>
@@ -67,18 +73,27 @@ $space = $database->freeSpace();
                             <h4 class="card-title">Espaço livre no banco <?php echo round($space, 2) ?>%</h4>
                             <div class="progress">
                                 <?php if (round($space, 2) > 75) { ?>
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
-                                        <?php echo round($space, 2) ?>%</div>
+                                <div class="progress-bar bg-success" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
 
                                 <?php if (round($space, 2) < 75 && round($space, 2) > 25) { ?>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
-                                        <?php echo round($space, 2) ?>%</div>
+                                <div class="progress-bar bg-warning" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
 
                                 <?php if (round($space, 2) < 25) { ?>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
-                                        <?php echo round($space, 2) ?>%</div>
+                                <div class="progress-bar bg-danger" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
                             </div>
                             <!--progress-->
@@ -90,32 +105,32 @@ $space = $database->freeSpace();
                 <!--col-md-3-->
                 <div class="col-md-9">
                     <?php if (isset($_GET['success'])) { ?>
-                        <div id="success-alert" class="alert alert-success col-md-12">
-                            <i class="bi bi-check-lg"></i> <?php echo $_GET['success']; ?>
-                        </div>
-                        <!--success-alert-->
+                    <div id="success-alert" class="alert alert-success col-md-12">
+                        <i class="bi bi-check-lg"></i> <?php echo $_GET['success']; ?>
+                    </div>
+                    <!--success-alert-->
                     <?php } ?>
                     <?php if (isset($_GET['error'])) { ?>
-                        <div id="error-alert" class="alert alert-danger col-md-12">
-                            <i class="bi bi-exclamation-triangle"></i> <?php echo $_GET['error']; ?>
-                        </div>
-                        <!--error-alert-->
+                    <div id="error-alert" class="alert alert-danger col-md-12">
+                        <i class="bi bi-exclamation-triangle"></i> <?php echo $_GET['error']; ?>
+                    </div>
+                    <!--error-alert-->
                     <?php } ?>
                     <!--Main card-->
                     <div class="card">
                         <div class="card-header main-color-bg">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-9">
                                     <h5>Visão Geral | Posts <i class="bi bi-newspaper"></i></h5>
                                 </div>
-                                <!--col-md-8-->
-                                <div class="col-md-4">
+                                <!--col-md-9-->
+                                <div class="col-md-3">
                                     <a href="create.php" class="btn btn-success">
                                         <i class="bi bi-plus-lg"></i> Criar post
                                     </a>
                                     <!--btn btn-primary-->
                                 </div>
-                                <!--col-md-4-->
+                                <!--col-md-3-->
                             </div>
                             <!--row-->
                         </div>
@@ -130,42 +145,53 @@ $space = $database->freeSpace();
                             <br>
                             <div class="table-responsive">
                                 <?php if (mysqli_num_rows($result)) { ?>
-                                    <table class="table table-striped table-hover">
-                                        <tr>
-                                            <th>Imagem</th>
-                                            <th>Título</th>
-                                            <th>Categoria</th>
-                                            <th>Status</th>
-                                            <th>Autor</th>
-                                            <th>Data de Criação</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        <?php
+                                <table class="table table-striped table-hover">
+                                    <tr>
+                                        <th>Imagem</th>
+                                        <th>Título</th>
+                                        <th>Categoria</th>
+                                        <th>Status</th>
+                                        <th>Autor</th>
+                                        <th>Data de Criação</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    <?php
                                         while ($rows = mysqli_fetch_assoc($result)) { ?>
-                                            <tr>
-                                                <td><a target="_blank" href='data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>'><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>" alt="<?php echo ucfirst($rows['ds_description']) ?>" class="img-thumbnail img-fluid rounded" style='width:100px'></a>
-                                                </td>
-                                                <td><?php echo mb_strimwidth(ucfirst($rows['ds_title']), 0, 25, '...') ?></td>
-                                                <td><?php echo ucfirst($rows['category']) ?></td>
-                                                <?php if ($rows['ds_status'] === "não publicado") { ?>
-                                                    <td><button type="button" class="btn btn-danger"><?php echo ucfirst($rows['ds_status']); ?></button>
-                                                    </td>
-                                                <?php } else if ($rows['ds_status'] == 'publicado') { ?>
-                                                    <td>
-                                                        <p class="btn btn-success"><?php echo ucfirst($rows['ds_status']); ?>
-                                                        </p>
-                                                    </td>
-                                                <?php } ?>
-                                                <td><?php echo ucfirst($rows['author']) ?></td>
-                                                <td><?php echo $rows['dt_created'] ?></td>
-                                                <td><a name="update" id="<?php echo $rows['id_post'] ?>" href='edit.php?id=<?php echo $rows['id_post'] ?>' class="btn btn-outline-dark update"><i class="bi bi-pencil-fill"></i></a>
-                                                </td>
-                                                <td><a name="delete" id="<?php echo $rows['id_post'] ?>" class="btn btn-danger delete" href='delete.php?id=<?php echo $rows['id_post'] ?>'><i class="bi bi-trash3"></i></a></td>
-                                            </tr>
+                                    <tr>
+                                        <td><a target="_blank"
+                                                href='data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>'><img
+                                                    src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>"
+                                                    alt="<?php echo ucfirst($rows['ds_description']) ?>"
+                                                    class="img-thumbnail img-fluid rounded" style='width:100px'></a>
+                                        </td>
+                                        <td><?php echo mb_strimwidth(ucfirst($rows['ds_title']), 0, 25, '...') ?></td>
+                                        <td><?php echo ucfirst($rows['category']) ?></td>
+                                        <?php if ($rows['ds_status'] === "não publicado") { ?>
+                                        <td><button type="button"
+                                                class="btn btn-danger"><?php echo ucfirst($rows['ds_status']); ?></button>
+                                        </td>
+                                        <?php } else if ($rows['ds_status'] == 'publicado') { ?>
+                                        <td>
+                                            <p class="btn btn-success"><?php echo ucfirst($rows['ds_status']); ?>
+                                            </p>
+                                        </td>
                                         <?php } ?>
-                                    </table>
-                                    <!--table table-striped-->
+                                        <td><?php echo ucfirst($rows['author']) ?></td>
+                                        <td><?php echo $rows['dt_created'] ?></td>
+                                        <td><a name="update" id="<?php echo $rows['id_post'] ?>"
+                                                href='edit.php?id=<?php echo $rows['id_post'] ?>'
+                                                class="btn btn-outline-dark update"><i
+                                                    class="bi bi-pencil-fill"></i></a>
+                                        </td>
+                                        <td><a name="delete" id="<?php echo $rows['id_post'] ?>"
+                                                class="btn btn-danger delete"
+                                                href='delete.php?id=<?php echo $rows['id_post'] ?>'><i
+                                                    class="bi bi-trash3"></i></a></td>
+                                    </tr>
+                                    <?php } ?>
+                                </table>
+                                <!--table table-striped-->
                                 <?php } ?>
                             </div>
                         </div>
@@ -187,7 +213,7 @@ $space = $database->freeSpace();
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
-                document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
             </script>
         </p>
     </footer>

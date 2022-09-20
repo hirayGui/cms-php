@@ -99,9 +99,15 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                         <a href="../home.php" class="list-group-item list-group-item-action">
                             <i class="bi bi-house-fill"></i> Home
                         </a>
-                        <a href="../pages/index.php" class="list-group-item list-group-item-action"><i class="bi bi-file-earmark-fill"></i> Páginas <span class="badge text-bg-secondary">3</span></a>
-                        <a href="index.php" class="list-group-item list-group-item-action  active main-color-bg"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
-                        <a href="../users/index.php" class="list-group-item list-group-item-action" aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount; ?></span></a>
+                        <a href="../pages/index.php" class="list-group-item list-group-item-action"><i
+                                class="bi bi-file-earmark-fill"></i> Páginas <span
+                                class="badge text-bg-secondary">3</span></a>
+                        <a href="index.php" class="list-group-item list-group-item-action  active main-color-bg"><i
+                                class="bi bi-newspaper"></i> Posts <span
+                                class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
+                        <a href="../users/index.php" class="list-group-item list-group-item-action"
+                            aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span
+                                class="badge text-bg-secondary"><?php echo $usersCount; ?></span></a>
                     </div>
                     <!--list-group-->
                     <br>
@@ -111,18 +117,27 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                             <h4 class="card-title">Espaço livre no banco <?php echo round($space, 2) ?>%</h4>
                             <div class="progress">
                                 <?php if (round($space, 2) > 75) { ?>
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
-                                        <?php echo round($space, 2) ?>%</div>
+                                <div class="progress-bar bg-success" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
 
                                 <?php if (round($space, 2) < 75 && round($space, 2) > 25) { ?>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
-                                        <?php echo round($space, 2) ?>%</div>
+                                <div class="progress-bar bg-warning" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
 
                                 <?php if (round($space, 2) < 25) { ?>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
-                                        <?php echo round($space, 2) ?>%</div>
+                                <div class="progress-bar bg-danger" role="progressbar"
+                                    style="width: <?php echo round($space, 2) ?>%;"
+                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
+                                    aria-valuemax="100">
+                                    <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
                             </div>
                             <!--progress-->
@@ -135,21 +150,24 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                 <div class="col-md-9">
                     <h3>Criação de post</h3>
                     <?php if ($errorMessage != '') { ?>
-                        <div id="error-alert" class="alert alert-danger col-sm-12">
-                            <i class="bi bi-exclamation-triangle"></i> <?php echo $errorMessage; ?>
-                        </div>
-                        <!--error-alert-->
+                    <div id="error-alert" class="alert alert-danger col-sm-12">
+                        <i class="bi bi-exclamation-triangle"></i> <?php echo $errorMessage; ?>
+                    </div>
+                    <!--error-alert-->
                     <?php } ?>
-                    <form action="#" method="post" id="createPost" role="form" class="card" enctype="multipart/form-data">
+                    <form action="#" method="post" id="createPost" role="form" class="card"
+                        enctype="multipart/form-data">
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-12 form-floating">
-                                    <input type="text" name="title" id="title" placeholder="Informe o título" class="form-control" required>
+                                    <input type="text" name="title" id="title" placeholder="Informe o título"
+                                        class="form-control" required>
                                     <label for="name">Título</label>
                                 </div>
                                 <!--col-12-->
                                 <div class="col-12 form-floating">
-                                    <textarea id="editor" type="text" class="form-control" name="body" placeholder="Corpo da postagem">
+                                    <textarea id="editor" type="text" class="form-control" name="body"
+                                        placeholder="Corpo da postagem">
                                     </textarea>
                                     <label for="body"></label>
                                 </div>
@@ -161,33 +179,37 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                                 <!--col-12-->
 
                                 <div class="col-12 form-floating">
-                                    <input type="text" name="imgDescription" id="imgDescription" placeholder="Informe a descrição da imagem" class="form-control" required>
+                                    <input type="text" name="imgDescription" id="imgDescription"
+                                        placeholder="Informe a descrição da imagem" class="form-control" required>
                                     <label for="imgDescription">Descrição da imagem</label>
                                 </div>
                                 <!--col-12-->
 
                                 <?php if (mysqli_num_rows($categories)) { ?>
-                                    <div class="col-md-6 form-floating">
-                                        <select class="form-select" aria-label=".form-select-lg example" placeholder=" Escolha a categoria" id="category" name="category">
-                                            <?php while ($rows = mysqli_fetch_assoc($categories)) { ?>
-                                                <option value="<?php echo $rows['id_category'] ?>">
-                                                    <?php echo $rows['ds_name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <label>Categoria</label>
-                                    </div>
-                                    <!--col-md-6-->
+                                <div class="col-md-6 form-floating">
+                                    <select class="form-select" aria-label=".form-select-lg example"
+                                        placeholder=" Escolha a categoria" id="category" name="category">
+                                        <?php while ($rows = mysqli_fetch_assoc($categories)) { ?>
+                                        <option value="<?php echo $rows['id_category'] ?>">
+                                            <?php echo $rows['ds_name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <label>Categoria</label>
+                                </div>
+                                <!--col-md-6-->
                                 <?php } ?>
                                 <div class="col-md-4"><label>Status</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="status" checked value="publicado">
+                                        <input class="form-check-input" type="radio" name="status" id="status" checked
+                                            value="publicado">
                                         <label class="form-check-label" for="status">
                                             Publicado
                                         </label>
                                     </div>
                                     <!--form-check-->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="status" value="não publicado">
+                                        <input class="form-check-input" type="radio" name="status" id="status"
+                                            value="não publicado">
                                         <label class="form-check-label" for="status">
                                             Não publicado
                                         </label>
@@ -198,7 +220,9 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
                                 <div class="col-md-2"></div>
                                 <!--col-md-2-->
                                 <div class="col-12">
-                                    <input type="submit" name='submit' value="Criar" class="btn btn-primary main-color-bg"> <a href="index.php" class="btn btn-outline-dark">Voltar</a>
+                                    <input type="submit" name='submit' value="Criar"
+                                        class="btn btn-primary main-color-bg"> <a href="index.php"
+                                        class="btn btn-outline-dark">Voltar</a>
                                 </div>
                             </div>
                             <!--row g-3-->
@@ -214,11 +238,11 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['body']) &
     <!--main-->
 
     <!--Footer-->
-    <footer id="footer" class="fixed-bottom footer py-3">
+    <footer id="footer" class="static-bottom footer py-3">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
-                document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
             </script>
         </p>
     </footer>
