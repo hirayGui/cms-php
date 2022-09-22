@@ -17,14 +17,14 @@ if (!$user->loggedIn()) {
 }
 
 $usersCount = $user->listUsersNumber();
-$resultNumber = $post->listPostsNumber();
+$postsCount = $post->listPostsNumber();
 $categories = $category->listCategories();
 $space = $database->freeSpace();
 
 //pagination
 $resultsPerPage = 5;
 
-$pageNumber = ceil($resultNumber / $resultsPerPage);
+$pageNumber = ceil($postsCount / $resultsPerPage);
 
 if (!isset($_GET['page'])) {
     $page = 1;
@@ -93,7 +93,7 @@ if (isset($_GET['category'])) {
                             <i class="bi bi-house-fill"></i> Home
                         </a>
                         <a href="../pages/index.php" class="list-group-item list-group-item-action"><i class="bi bi-file-earmark-fill"></i> Páginas <span class="badge text-bg-secondary">3</span></a>
-                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg" aria-current="true"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $resultNumber; ?></span></a>
+                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg" aria-current="true"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
                         <a href="../users/index.php" class="list-group-item list-group-item-action"><i class="bi bi-people-fill"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
                     </div>
                     <!--list-group-->
@@ -228,14 +228,7 @@ if (isset($_GET['category'])) {
                                         <!--page-link-->
                                     </li>
                                     <!--page-item-->
-                                    <?php for ($i = 1; ($i * $resultsPerPage) <= $resultNumber; $i++) { ?>
-                                        <li class="page-item <?php if ($i == $page) { ?>disabled<?php } ?>">
-                                            <a href="index.php?page=<?php echo $i ?>" class="page-link"><?php echo $i ?></a>
-                                            <!--page-link-->
-                                        </li>
-                                        <!--page-item-->
-                                    <?php } ?>
-                                    <li class="page-item <?php if (($page * $resultsPerPage) >= $resultNumber) { ?>disabled<?php } ?>">
+                                    <li class="page-item <?php if (($page * $resultsPerPage) >= $postsCount) { ?>disabled<?php } ?>">
                                         <a href="index.php?page=<?php echo $page + 1 ?>" class="page-link">Próximo <i class="bi bi-caret-right-fill"></i></a>
                                         <!--page-link-->
                                     </li>
