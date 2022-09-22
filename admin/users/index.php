@@ -14,18 +14,35 @@ if (!$user->loggedIn()) {
     header('Location: ../index.php');
 }
 
+$usersCount = $user->listUsersNumber();
+$postsCount = $post->listPostsNumber();
+$space = $database->freeSpace();
+
+//pagination
+$resultsPerPage = 5;
+
+$pageNumber = ceil($usersCount / $resultsPerPage);
+
+if (!isset($_GET['page'])) {
+    $page = 1;
+} else {
+    $page = $_GET['page'];
+}
+
+$pageFirstResult = ($page - 1) * $resultsPerPage;
+
+$user->pageFirstResult = $pageFirstResult;
+$user->resultsPerPage = $resultsPerPage;
+
+$result = $user->listUsers();
+
+//search field
 if (isset($_POST['search'])) {
     $user->search = $_POST['search'];
     $result = $user->listUsers();
 } else {
     $result = $user->listUsers();
 }
-
-$usersCount = $user->listUsersNumber();
-$postsCount = $post->listPostsNumber();
-
-$space = $database->freeSpace();
-
 
 ?>
 
@@ -200,7 +217,23 @@ $space = $database->freeSpace();
                                 <!--table table-striped-->
                             </div>
                             <!--table-responsive-->
-
+                            <br>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item <?php if ($page == 1) { ?> disabled <?php } ?>">
+                                        <a href="index.php?page=<?php echo $page - 1 ?>" class="page-link"><i class="bi bi-caret-left-fill"></i> Anterior</a>
+                                        <!--page-link-->
+                                    </li>
+                                    <!--page-item-->
+                                    <li class="page-item <?php if (($page * $resultsPerPage) >= $usersCount) { ?> disabled <?php } ?>">
+                                        <a href="index.php?page=<?php echo $page + 1 ?>" class="page-link">Próximo <i class="bi bi-caret-right-fill"></i></a>
+                                        <!--page-link-->
+                                    </li>
+                                    <!--page-item-->
+                                </ul>
+                                <!--pagination-justify-content-center-->
+                            </nav>
+                            <!--Page-navigation-->
                         </div>
                         <!--card-body-->
                     </div>

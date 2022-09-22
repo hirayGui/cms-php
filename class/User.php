@@ -90,6 +90,8 @@ class User
             $sqlQuery .= 'OR ds_email LIKE "%' . $this->search . '%" ';
         }
 
+        $sqlQuery .= ' ORDER BY id_user DESC LIMIT ' . $this->pageFirstResult . ', ' . $this->resultsPerPage . " ";
+
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute();
         $result = $stmt->get_result();
