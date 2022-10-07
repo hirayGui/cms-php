@@ -152,7 +152,7 @@ $lastUsers = $user->listLastUsers();
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-3 col-md-3">
+                                <div class="col-12 col-md-3 ">
                                     <div class="card dash-box">
                                         <div class="card-body">
                                             <h2><i class="bi bi-people-fill"></i> <?php echo $usersCount ?> </h2>
@@ -163,7 +163,7 @@ $lastUsers = $user->listLastUsers();
                                 </div>
                                 <!--col-md-3-->
 
-                                <div class="col-3 col-md-3">
+                                <div class="col-12 col-md-3">
                                     <div class="card dash-box">
                                         <div class="card-body">
                                             <h2><i class="bi bi-newspaper"></i> <?php echo $postsCount ?> </h2>
@@ -174,7 +174,7 @@ $lastUsers = $user->listLastUsers();
                                 </div>
                                 <!--col-md-3-->
 
-                                <div class="col-3 col-md-3">
+                                <div class="col-12 col-md-3">
                                     <div class="card dash-box">
                                         <div class="card-body">
                                             <h2><i class="bi bi-file-earmark-fill"></i> 3 </h2>
@@ -185,7 +185,7 @@ $lastUsers = $user->listLastUsers();
                                 </div>
                                 <!--col-md-3-->
 
-                                <div class="col-3 col-md-3">
+                                <div class="col-12 col-md-3">
                                     <div class="card dash-box">
                                         <div class="card-body">
                                             <h2><i class="bi bi-bar-chart-fill"></i> 3K </h2>

@@ -194,7 +194,11 @@ if (isset($_POST['search'])) {
                                                 <tr>
                                                     <td><?php echo ucfirst($rows['ds_name']) ?></td>
                                                     <td><?php echo $rows['ds_email'] ?></td>
-                                                    <td><?php echo ucfirst($rows['ds_role']) ?></td>
+                                                    <?php if (ucfirst($rows['ds_role']) == 'Admin') { ?>
+                                                        <td><b><?php echo ucfirst($rows['ds_role']) ?></b></td>
+                                                    <?php } else { ?>
+                                                        <td><?php echo ucfirst($rows['ds_role']) ?></td>
+                                                    <?php } ?>
                                                     <?php if ($rows['ds_status'] == "inativo") { ?>
                                                         <td><button type="button" class="btn btn-danger"><?php echo ucfirst($rows['ds_status']); ?></button>
                                                         </td>
@@ -249,7 +253,7 @@ if (isset($_POST['search'])) {
     <!--main-->
 
     <!--Footer-->
-    <footer id="footer" class="footer py-3 fixed-bottom">
+    <footer id="footer" class="footer py-3 absolute-bottom">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
