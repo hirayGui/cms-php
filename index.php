@@ -229,7 +229,11 @@ $posts = $post->listLastPublishedPosts();
                 </div>
                 <?php } ?>
             </div>
+            <div class="row mt-4">
+                <a href="posts.php" class="card-text mbr-fonts-style display-7 align-right">Ver mais notícias <span class="mbr-iconfont mobi-mbri-right mobi-mbri"></span></a>
+            </div>
             <?php } ?>
+            
         </div>
     </section>
 
