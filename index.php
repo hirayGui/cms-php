@@ -62,7 +62,7 @@ $posts = $post->listLastPublishedPosts();
         }
 
         .container .slider .logos img {
-            width: 110px auto;
+            width: 110px;
             padding: 2.5px;
             animation: fade-in 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
         }
