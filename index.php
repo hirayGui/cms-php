@@ -28,22 +28,65 @@ $posts = $post->listLastPublishedPosts();
     <link rel="shortcut icon" href="assets/images/mbr-1.png" type="image/x-icon">
     <meta name="description" content="">
     <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="assets/dropdown/css/style.css">
     <link rel="stylesheet" href="assets/socicon/css/styles.css">
     <link rel="stylesheet" href="assets/theme/css/style.css">
-    <link rel="preload"
-        href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
-        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
     </noscript>
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            background-color: white;
+        }
+
+        .container {
+            overflow: hidden;
+        }
+
+        .container .slider {
+            animation: slidein 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .container .slider .logos {
+            width: 100%;
+            display: inline-flex !important;
+            margin: 0px 0;
+        }
+
+        .container .slider .logos img {
+            width: 110px auto;
+            padding: 2.5px;
+            animation: fade-in 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+        }
+
+        @keyframes slidein {
+            from {
+                transform: translate3d(0, 0, 0);
+            }
+
+            to {
+                transform: translate3d(-100%, 0, 0);
+            }
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -52,12 +95,9 @@ $posts = $post->listLastPublishedPosts();
         <nav class="navbar navbar-dropdown navbar-expand-lg">
             <div class="container-fluid">
                 <div class="navbar-brand">
-                    <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-7"
-                            href="https://mobiri.se">BusinessCompany</a></span>
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-7" href="https://mobiri.se">BusinessCompany</a></span>
                 </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
-                    data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="hamburger">
                         <span></span>
                         <span></span>
@@ -69,13 +109,10 @@ $posts = $post->listLastPublishedPosts();
                     <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                         <li class="nav-item"><a class="nav-link link text-white display-4" href="index.php">Home</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link link text-white display-4"
-                                href="index.php#header14-1j">Sobre</a></li>
-                        <li class="nav-item"><a class="nav-link link text-white text-primary display-4"
-                                href="posts.php">Notícias</a>
+                        <li class="nav-item"><a class="nav-link link text-white display-4" href="index.php#header14-1j">Sobre</a></li>
+                        <li class="nav-item"><a class="nav-link link text-white text-primary display-4" href="posts.php">Notícias</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link link text-white display-4"
-                                href="index.php#contacts2-1r">Contato</a></li>
+                        <li class="nav-item"><a class="nav-link link text-white display-4" href="index.php#contacts2-1r">Contato</a></li>
                     </ul>
                     <div class="icons-menu">
                         <a class="iconfont-wrapper" href="http://linkedin.com/businesscia" target="_blank">
@@ -103,8 +140,7 @@ $posts = $post->listLastPublishedPosts();
                         <p class="mbr-text mbr-fonts-style display-7">A Business Company trabalha na área do direito
                             empresarial e alivia as dores de cabeça do cliente, tomando conta de todos os trâmite legais
                             de sua empresa.</p>
-                        <div class="mbr-section-btn mt-3"><a class="btn btn-primary display-4"
-                                href="index.php#header14-1j">Saiba mais</a></div>
+                        <div class="mbr-section-btn mt-3"><a class="btn btn-primary display-4" href="index.php#header14-1j">Saiba mais</a></div>
                     </div>
                 </div>
             </div>
@@ -203,37 +239,33 @@ $posts = $post->listLastPublishedPosts();
                 </h4>
             </div>
             <?php if (mysqli_num_rows($posts)) { ?>
-            <div class="row mt-4">
-                <?php while ($rows = mysqli_fetch_assoc($posts)) { ?>
-                <div class="item features-image сol-12 col-md-6 col-lg-4">
-                    <div class="item-wrapper">
-                        <div class="item-img">
-                            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>"
-                                alt="<?php echo $rows['ds_description'] ?>" class="img-fluid rounded"
-                                style='width: 336px; height: auto'>
-                        </div>
-                        <div class="item-content">
-                            <h5 class="item-title mbr-fonts-style display-5">
-                                <strong><?php echo mb_strimwidth(ucfirst($rows['ds_title']), 0, 25, '...') ?></strong>
-                            </h5>
+                <div class="row mt-4">
+                    <?php while ($rows = mysqli_fetch_assoc($posts)) { ?>
+                        <div class="item features-image сol-12 col-md-6 col-lg-4">
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['ds_image']); ?>" alt="<?php echo $rows['ds_description'] ?>" class="img-fluid rounded" style='width: 336px; height: auto'>
+                                </div>
+                                <div class="item-content">
+                                    <h5 class="item-title mbr-fonts-style display-5">
+                                        <strong><?php echo mb_strimwidth(ucfirst($rows['ds_title']), 0, 25, '...') ?></strong>
+                                    </h5>
 
-                            <div class="mbr-text mbr-fonts-style mt-3 display-7">
-                                <?php echo mb_strimwidth(ucfirst($rows['ds_body']), 0, 75, '...'); ?>
+                                    <div class="mbr-text mbr-fonts-style mt-3 display-7">
+                                        <?php echo mb_strimwidth(ucfirst($rows['ds_body']), 0, 75, '...'); ?>
+                                    </div>
+                                </div>
+                                <div class="mbr-section-btn item-footer mt-2"><a href="post.php?id=<?php echo $rows['id_post'] ?>" class="btn item-btn btn-primary display-4">Continuar lendo
+                                    </a></div>
                             </div>
                         </div>
-                        <div class="mbr-section-btn item-footer mt-2"><a
-                                href="post.php?id=<?php echo $rows['id_post'] ?>"
-                                class="btn item-btn btn-primary display-4">Continuar lendo
-                            </a></div>
-                    </div>
+                    <?php } ?>
                 </div>
-                <?php } ?>
-            </div>
-            <div class="row mt-4">
-                <a href="posts.php" class="card-text mbr-fonts-style display-7 align-right">Ver mais notícias <span class="mbr-iconfont mobi-mbri-right mobi-mbri"></span></a>
-            </div>
+                <div class="row mt-4">
+                    <a href="posts.php" class="card-text mbr-fonts-style display-7 align-right">Ver mais notícias <span class="mbr-iconfont mobi-mbri-right mobi-mbri"></span></a>
+                </div>
             <?php } ?>
-            
+
         </div>
     </section>
 
@@ -319,30 +351,32 @@ $posts = $post->listLastPublishedPosts();
                 <h4 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-2 display-7">Algumas das empresas
                     que fazem negócio com a Business Company</h4>
             </div>
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-3 card">
-                    <img src="assets/images/mbr.png" alt="Mobirise Website Builder">
-                </div>
-                <div class="col-md-3 card">
-                    <img src="assets/images/mbr-2.png" alt="Mobirise Website Builder">
-                </div>
-                <div class="col-md-3 card">
-                    <img src="assets/images/mbr-3.png" alt="Mobirise Website Builder">
-                </div>
-                <div class="col-md-3 card">
-                    <img src="assets/images/mbr-4.png" alt="Mobirise Website Builder">
-                </div>
-                <div class="col-md-3 card">
-                    <img src="assets/images/mbr-5.png" alt="Mobirise Website Builder">
-                </div>
-                <div class="col-md-3 card">
-                    <img src="assets/images/mbr-6.png" alt="Mobirise Website Builder">
-                </div>
-                <div class="col-md-3 card">
-                    <img src="assets/images/mbr-7.png" alt="Mobirise Website Builder">
-                </div>
-                <div class="col-md-3 card">
-                    <img src="assets/images/mbr-8.png" alt="Mobirise Website Builder">
+            <div class="container h-100">
+                <div class="align-items-center h-100">
+                    <div class="container rounded">
+                        <div class="slider">
+                            <div class="logos">
+                                <img src="assets/images/mbr.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-2.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-3.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-4.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-5.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-6.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-7.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-8.png" alt="Mobirise Website Builder" class="fab">
+                            </div>
+                            <div class="logos">
+                                <img src="assets/images/mbr.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-2.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-3.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-4.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-5.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-6.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-7.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-8.png" alt="Mobirise Website Builder" class="fab">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -364,8 +398,7 @@ $posts = $post->listLastPublishedPosts();
                         </div>
                         <div class="text-wrapper">
                             <h6 class="card-title mbr-fonts-style mb-1 display-5"><strong>Telefone</strong></h6>
-                            <p class="mbr-text mbr-fonts-style display-7"><a href="tel:+55(11)40028922"
-                                    class="text-danger">(11) 4002-8922</a></p>
+                            <p class="mbr-text mbr-fonts-style display-7"><a href="tel:+55(11)40028922" class="text-danger">(11) 4002-8922</a></p>
                         </div>
                     </div>
                 </div>
@@ -420,14 +453,10 @@ $posts = $post->listLastPublishedPosts();
             <div class="row align-center mbr-white">
                 <div class="row row-links">
                     <ul class="foot-menu">
-                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="#top"
-                                class="text-white text-primary">Home</a></li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#header14-1j"
-                                class="text-white">Sobre</a></li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#features3-1p"
-                                class="text-white">Notícias</a></li>
-                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#contacts2-1r"
-                                class="text-white">Contato</a></li>
+                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="#top" class="text-white text-primary">Home</a></li>
+                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#header14-1j" class="text-white">Sobre</a></li>
+                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#features3-1p" class="text-white">Notícias</a></li>
+                        <li class="foot-menu-item mbr-fonts-style display-7"><a href="index.php#contacts2-1r" class="text-white">Contato</a></li>
                     </ul>
                 </div>
                 <div class="row social-row">
@@ -444,8 +473,7 @@ $posts = $post->listLastPublishedPosts();
                         </div>
                         <div class="soc-item">
 
-                            <a href="http://linkedin.com/businesscia"><span
-                                    class="mbr-iconfont mbr-iconfont-social socicon-linkedin socicon"></span></a>
+                            <a href="http://linkedin.com/businesscia"><span class="mbr-iconfont mbr-iconfont-social socicon-linkedin socicon"></span></a>
 
                         </div>
                         <div class="soc-item">
@@ -462,21 +490,17 @@ $posts = $post->listLastPublishedPosts();
             </div>
         </div>
     </section>
-    <section class="display-7"
-        style="padding: 0;align-items: center;justify-content: center;flex-wrap: wrap;    align-content: center;display: flex;position: relative;height: 4rem;">
-        <a href="https://mobiri.se/" style="flex: 1 1;height: 4rem;position: absolute;width: 100%;z-index: 1;"><img
-                alt="" style="height: 4rem;"
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="></a>
-        <p style="margin: 0;text-align: center;" class="display-7">Made with Mobirise &#8204;</p><a style="z-index:1"
-            href="https://mobirise.com/website-design-software.html">Free Website Designer Software</a>
+    <section class="display-7" style="padding: 0;align-items: center;justify-content: center;flex-wrap: wrap;    align-content: center;display: flex;position: relative;height: 4rem;">
+        <a href="https://mobiri.se/" style="flex: 1 1;height: 4rem;position: absolute;width: 100%;z-index: 1;"><img alt="" style="height: 4rem;" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="></a>
+        <p style="margin: 0;text-align: center;" class="display-7">Made with Mobirise &#8204;</p><a style="z-index:1" href="https://mobirise.com/website-design-software.html">Free Website Designer Software</a>
     </section>
-    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
     <script src="assets/ytplayer/index.js"></script>
     <script src="assets/dropdown/js/navbar-dropdown.js"></script>
     <script src="assets/theme/js/script.js"></script>
-    <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
-                class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
+    <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
 </body>
 
 </html>
