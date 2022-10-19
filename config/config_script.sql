@@ -43,6 +43,14 @@ CREATE TABLE tb_images(
     PRIMARY KEY(id_image)
 );
 
+CREATE TABLE tb_clients(
+id_client INT NOT NULL AUTO_INCREMENT,
+ds_name VARCHAR(40) NOT NULL,
+id_image INT NOT NULL,
+PRIMARY KEY(id_client),
+FOREIGN KEY (id_image) REFERENCES tb_images(id_image)
+);
+
 /*Inserts*/
 INSERT INTO tb_categories(
 			ds_name
