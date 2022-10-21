@@ -33,7 +33,7 @@ if (isset($_GET['id'])) {
                 header('Location: index.php?error=Ocorreu um erro ao tentar deletar post!');
             }
         } else {
-            header('Location: index.php?error=Ocorreu um erro ao consultar post!');
+            header('Location: index.php?error=Ocorreu um erro ao tentar deletar post!');
         }
     }
 } else {

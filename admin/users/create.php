@@ -2,12 +2,14 @@
 include_once '../../config/Database.php';
 include_once '../../class/User.php';
 include_once '../../class/Post.php';
+include_once '../../class/Client.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
 $post = new Post($db);
+$client = new Client($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
@@ -21,6 +23,7 @@ if (!$user->isAdmin()) {
 $errorMessage = '';
 $usersCount = $user->listUsersNumber();
 $postsCount = $post->listPostsNumber();
+$clientsCount = $client->listClientsNumber();
 
 $space = $database->freeSpace();
 
@@ -80,7 +83,11 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
                         <a href="../home.php" class="list-group-item list-group-item-action">
                             <i class="bi bi-house-fill"></i> Home
                         </a>
-                        <a href="../pages/index.php" class="list-group-item list-group-item-action"><i class="bi bi-file-earmark-fill"></i> Páginas <span class="badge text-bg-secondary">3</span></a>
+                        <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#site" data-bs-parent="#menu"><i class="bi bi-window-fullscreen"></i> Site</a>
+                        <div class="sublinks collapse" id="site">
+                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-file-person-fill"></i> Clientes <span class="badge text-bg-secondary"><?php echo $clientsCount ?></span></a>
+                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-briefcase-fill"></i> Equipe</a>
+                        </div>
                         <a href="../posts/index.php" class="list-group-item list-group-item-action"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
                         <a href="index.php" class="list-group-item list-group-item-action active main-color-bg" aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount; ?></span></a>
                     </div>

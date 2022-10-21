@@ -2,6 +2,7 @@
 include_once '../config/Database.php';
 include_once '../class/User.php';
 include_once '../class/Post.php';
+include_once '../class/Client.php';
 
 
 $database = new Database();
@@ -9,6 +10,7 @@ $db = $database->getConnection();
 
 $user = new User($db);
 $post = new Post($db);
+$client = new Client($db);
 
 //verifying if user is logged in
 if (!$user->loggedIn()) {
@@ -21,6 +23,7 @@ if (!$user->isActive()) {
 
 $usersCount = $user->listUsersNumber();
 $postsCount = $post->listPostsNumber();
+$clientsCount = $client->listClientsNumber();
 $space = $database->freeSpace();
 $lastUsers = $user->listLastUsers();
 ?>
@@ -51,8 +54,7 @@ $lastUsers = $user->listLastUsers();
     <nav class="navbar navbar-expand-md navbar-default sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Painel de Controle</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!--navbar-toggler-->
@@ -92,19 +94,16 @@ $lastUsers = $user->listLastUsers();
                 <div class="col-md-3">
                     <!--List group showing areas you can manage-->
                     <div class="list-group">
-                        <a href="home.php" class="list-group-item list-group-item-action active main-color-bg"
-                            aria-current="true">
+                        <a href="home.php" class="list-group-item list-group-item-action active main-color-bg" aria-current="true">
                             <i class="bi bi-house-fill"></i> Home
                         </a>
-                        <a href="pages/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-file-earmark-fill"></i> Páginas <span
-                                class="badge text-bg-secondary">3</span></a>
-                        <a href="posts/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-newspaper"></i> Posts <span
-                                class="badge text-bg-secondary"><?php echo $postsCount ?></span></a>
-                        <a href="users/index.php" class="list-group-item list-group-item-action"><i
-                                class="bi bi-people-fill"></i> Usuários <span
-                                class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
+                        <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#site" data-bs-parent="#menu"><i class="bi bi-window-fullscreen"></i> Site</a>
+                        <div class="sublinks collapse" id="site">
+                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-file-person-fill"></i> Clientes <span class="badge text-bg-secondary"><?php echo $clientsCount ?></span></a>
+                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-briefcase-fill"></i> Equipe</a>
+                        </div>
+                        <a href="posts/index.php" class="list-group-item list-group-item-action"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $postsCount ?></span></a>
+                        <a href="users/index.php" class="list-group-item list-group-item-action"><i class="bi bi-people-fill"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
                     </div>
                     <!--list-group-->
                     <br>
@@ -114,27 +113,18 @@ $lastUsers = $user->listLastUsers();
                             <h4 class="card-title">Espaço livre no banco <?php echo round($space, 2) ?>%</h4>
                             <div class="progress">
                                 <?php if (round($space, 2) > 75) { ?>
-                                <div class="progress-bar bg-success" role="progressbar"
-                                    style="width: <?php echo round($space, 2) ?>%;"
-                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
-                                    aria-valuemax="100">
-                                    <?php echo round($space, 2) ?>%</div>
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
 
                                 <?php if (round($space, 2) < 75 && round($space, 2) > 25) { ?>
-                                <div class="progress-bar bg-warning" role="progressbar"
-                                    style="width: <?php echo round($space, 2) ?>%;"
-                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
-                                    aria-valuemax="100">
-                                    <?php echo round($space, 2) ?>%</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
 
                                 <?php if (round($space, 2) < 25) { ?>
-                                <div class="progress-bar bg-danger" role="progressbar"
-                                    style="width: <?php echo round($space, 2) ?>%;"
-                                    aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0"
-                                    aria-valuemax="100">
-                                    <?php echo round($space, 2) ?>%</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo round($space, 2) ?>%;" aria-valuenow="<?php echo round($space, 2) ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <?php echo round($space, 2) ?>%</div>
                                 <?php } ?>
                             </div>
                             <!--progress-->
@@ -209,30 +199,29 @@ $lastUsers = $user->listLastUsers();
                         <!--card-header-->
                         <div class="card-body table-responsive">
                             <?php if (mysqli_num_rows($lastUsers)) { ?>
-                            <table class="table table-striped table-hover">
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                </tr>
+                                <table class="table table-striped table-hover">
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                    </tr>
 
-                                <?php while ($rows = mysqli_fetch_assoc($lastUsers)) { ?>
-                                <tr>
-                                    <td><?php echo ucfirst($rows['ds_name']); ?></td>
-                                    <td><?php echo $rows['ds_email']; ?></td>
-                                    <?php if ($rows['ds_status'] == "inativo") { ?>
-                                    <td><button type="button"
-                                            class="btn btn-danger"><?php echo ucfirst($rows['ds_status']); ?></button>
-                                    </td>
-                                    <?php } else if ($rows['ds_status'] == 'ativo') { ?>
-                                    <td>
-                                        <p class="btn btn-success"><?php echo ucfirst($rows['ds_status']); ?></p>
-                                    </td>
+                                    <?php while ($rows = mysqli_fetch_assoc($lastUsers)) { ?>
+                                        <tr>
+                                            <td><?php echo ucfirst($rows['ds_name']); ?></td>
+                                            <td><?php echo $rows['ds_email']; ?></td>
+                                            <?php if ($rows['ds_status'] == "inativo") { ?>
+                                                <td><button type="button" class="btn btn-danger"><?php echo ucfirst($rows['ds_status']); ?></button>
+                                                </td>
+                                            <?php } else if ($rows['ds_status'] == 'ativo') { ?>
+                                                <td>
+                                                    <p class="btn btn-success"><?php echo ucfirst($rows['ds_status']); ?></p>
+                                                </td>
+                                            <?php } ?>
+                                        </tr>
                                     <?php } ?>
-                                </tr>
-                                <?php } ?>
-                            </table>
-                            <!--table table-striped-->
+                                </table>
+                                <!--table table-striped-->
                             <?php } ?>
                         </div>
                         <!--card-body-->
@@ -252,7 +241,7 @@ $lastUsers = $user->listLastUsers();
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
-            document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+                document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
             </script>
         </p>
     </footer>
