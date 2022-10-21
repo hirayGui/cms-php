@@ -3,6 +3,9 @@
 class Post
 {
     private $postTable = 'tb_posts';
+    private $imageTable = 'tb_images';
+    private $categoryTable = 'tb_categories';
+    private $userTable = 'tb_users';
     private $conn;
 
     public function __construct($db)
@@ -13,7 +16,7 @@ class Post
     public function selectPost()
     {
         if ($this->id) {
-            $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body, DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, DATE_FORMAT(p.dt_updated, "%e %b %Y às %H:%i") as dt_updated, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" AND p.id_post = ? ORDER BY p.dt_created DESC';
+            $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body, DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, DATE_FORMAT(p.dt_updated, "%e %b %Y às %H:%i") as dt_updated, p.ds_status, c.ds_name as category, u.ds_name as author, i.id_image, i.ds_image, i.ds_description FROM '. $this->postTable .' p INNER JOIN '. $this->categoryTable .' c ON c.id_category = p.id_category INNER JOIN '. $this->userTable .' u ON u.id_user = p.id_user INNER JOIN '. $this->imageTable .' i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" AND p.id_post = ?';
 
             $stmt = $this->conn->prepare($sqlQuery);
             $stmt->bind_param('i', $this->id);
@@ -26,7 +29,7 @@ class Post
 
     public function listPosts()
     {
-        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image ';
+        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM '. $this->postTable .' p INNER JOIN '. $this->categoryTable .' c ON c.id_category = p.id_category INNER JOIN '. $this->userTable .' u ON u.id_user = p.id_user INNER JOIN '. $this->imageTable .' i ON i.id_image = p.id_image ';
 
         if (!empty($this->search)) {
             $sqlQuery .= ' WHERE p.id_post LIKE "%' . $this->search . '%" ';
@@ -43,7 +46,7 @@ class Post
     }
 
     public function listByCategory(){
-        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image WHERE p.id_category = '. $this->category;
+        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM '. $this->postTable .' p INNER JOIN '. $this->categoryTable .' c ON c.id_category = p.id_category INNER JOIN '. $this->userTable .' u ON u.id_user = p.id_user INNER JOIN '. $this->imageTable .' i ON i.id_image = p.id_image WHERE p.id_category = '. $this->category;
 
         if(!empty($this->search)){
             $sqlQuery .= ' AND p.ds_title LIKE "%' . $this->search . '%"';
@@ -61,7 +64,7 @@ class Post
 
     public function listPublishedPosts()
     {
-        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" ORDER BY p.dt_created DESC';
+        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM '. $this->postTable .' p INNER JOIN '. $this->categoryTable .' c ON c.id_category = p.id_category INNER JOIN '. $this->userTable .' u ON u.id_user = p.id_user INNER JOIN '. $this->imageTable .' i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" ORDER BY p.dt_created DESC';
 
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute();
@@ -72,7 +75,7 @@ class Post
 
     public function listLastPublishedPosts()
     {
-        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" ORDER BY p.dt_created DESC LIMIT 3';
+        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM '. $this->postTable .' p INNER JOIN '. $this->categoryTable .' c ON c.id_category = p.id_category INNER JOIN '. $this->userTable .' u ON u.id_user = p.id_user INNER JOIN '. $this->imageTable .' i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" ORDER BY p.dt_created DESC LIMIT 3';
 
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute();
@@ -83,7 +86,7 @@ class Post
 
     public function showLimitedPosts()
     {
-        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM tb_posts p INNER JOIN tb_categories c ON c.id_category = p.id_category INNER JOIN tb_users u ON u.id_user = p.id_user INNER JOIN tb_images i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" ORDER BY p.dt_created DESC LIMIT ' . $this->pageFirstResult . ', ' . $this->resultsPerPage;
+        $sqlQuery = 'SELECT p.id_post, p.ds_title, p.ds_body,DATE_FORMAT(p.dt_created, "%e %b %Y às %H:%i") as dt_created, p.ds_status, c.ds_name as category, u.ds_name as author, i.ds_image, i.ds_description FROM '. $this->postTable .' p INNER JOIN '. $this->categoryTable .' c ON c.id_category = p.id_category INNER JOIN '. $this->userTable .' u ON u.id_user = p.id_user INNER JOIN '. $this->imageTable .' i ON i.id_image = p.id_image WHERE p.ds_status = "publicado" ORDER BY p.dt_created DESC LIMIT ' . $this->pageFirstResult . ', ' . $this->resultsPerPage;
 
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute();
@@ -110,7 +113,7 @@ class Post
     public function insert()
     {
         if ($_SESSION['role'] && $_SESSION['userid']) {
-            $imgQuery = 'SELECT id_image FROM tb_images WHERE ds_image = "' . $this->imgContent . '"';
+            $imgQuery = 'SELECT id_image FROM '. $this->imageTable .' WHERE ds_image = "' . $this->imgContent . '"';
             $stmt = $this->conn->prepare($imgQuery);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -136,12 +139,12 @@ class Post
     public function imgInsert()
     {
         if ($_SESSION['role'] && $_SESSION['userid']) {
-            $testQuery = 'SELECT id_image FROM tb_images WHERE ds_image = "' . $this->imgContent . '"';
+            $testQuery = 'SELECT id_image FROM '. $this->imageTable .' WHERE ds_image = "' . $this->imgContent . '"';
             $stmt = $this->conn->prepare($testQuery);
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result->num_rows == 0) {
-                $stmt = $this->conn->prepare("INSERT INTO tb_images (ds_image, ds_description) VALUES ('$this->imgContent', '$this->imgDescription'); ");
+                $stmt = $this->conn->prepare('INSERT INTO '. $this->imageTable .' (ds_image, ds_description) VALUES ("'.$this->imgContent.'", "'.$this->imgDescription.'"); ');
 
                 if ($stmt->execute()) {
                     return true;
@@ -155,7 +158,7 @@ class Post
     public function edit()
     {
         if ($_SESSION['role'] && $_SESSION['userid']) {
-            $imgQuery = 'SELECT id_image FROM tb_images WHERE ds_image = "' . addslashes($this->imgContent) . '"';
+            $imgQuery = 'SELECT id_image FROM '. $this->imageTable .' WHERE ds_image = "' . $this->imgContent . '"';
             $stmt = $this->conn->prepare($imgQuery);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -181,14 +184,14 @@ class Post
     public function delete()
     {
         if ($this->id) {
-            if ($_SESSION['role'] == "admin") {
+            if ($_SESSION['role']) {
                 $stmt = $this->conn->prepare("
             DELETE FROM " . $this->postTable . " WHERE id_post = ?");
                 $this->id = $this->id;
                 $stmt->bind_param('i', $this->id);
 
                 if ($stmt->execute()) {
-                    $stmt = $this->conn->prepare("DELETE FROM tb_images WHERE id_image = ?");
+                    $stmt = $this->conn->prepare('DELETE FROM '. $this->imageTable .' WHERE id_image = ?');
                     $stmt->bind_param('i', $this->imageId);
 
                     if ($stmt->execute()) {
