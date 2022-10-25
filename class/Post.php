@@ -185,8 +185,7 @@ class Post
     {
         if ($this->id) {
             if ($_SESSION['role']) {
-                $stmt = $this->conn->prepare("
-            DELETE FROM " . $this->postTable . " WHERE id_post = ?");
+                $stmt = $this->conn->prepare('DELETE FROM ' . $this->postTable . ' WHERE id_post = ?');
                 $this->id = $this->id;
                 $stmt->bind_param('i', $this->id);
 

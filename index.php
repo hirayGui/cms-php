@@ -364,8 +364,30 @@ $posts = $post->listLastPublishedPosts();
                                 <img src="assets/images/mbr-6.png" alt="Mobirise Website Builder" class="fab">
                                 <img src="assets/images/mbr-7.png" alt="Mobirise Website Builder" class="fab">
                                 <img src="assets/images/mbr-8.png" alt="Mobirise Website Builder" class="fab">
-                            </div>
-                            <div class="logos">
+                                <img src="assets/images/mbr.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-2.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-3.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-4.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-5.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-6.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-7.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-8.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-2.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-3.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-4.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-5.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-6.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-7.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-8.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-2.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-3.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-4.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-5.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-6.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-7.png" alt="Mobirise Website Builder" class="fab">
+                                <img src="assets/images/mbr-8.png" alt="Mobirise Website Builder" class="fab">
                                 <img src="assets/images/mbr.png" alt="Mobirise Website Builder" class="fab">
                                 <img src="assets/images/mbr-2.png" alt="Mobirise Website Builder" class="fab">
                                 <img src="assets/images/mbr-3.png" alt="Mobirise Website Builder" class="fab">

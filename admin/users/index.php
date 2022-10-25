@@ -91,11 +91,11 @@ if (isset($_POST['search'])) {
                         </a>
                         <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#site" data-bs-parent="#menu"><i class="bi bi-window-fullscreen"></i> Site</a>
                         <div class="sublinks collapse" id="site">
-                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-file-person-fill"></i> Clientes <span class="badge text-bg-secondary"><?php echo $clientsCount ?></span></a>
+                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-people-fill"></i> Clientes <span class="badge text-bg-secondary"><?php echo $clientsCount ?></span></a>
                             <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-briefcase-fill"></i> Equipe</a>
                         </div>
                         <a href="../posts/index.php" class="list-group-item list-group-item-action"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $postsCount; ?></span></a>
-                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg" aria-current="true"><i class="bi bi-people-fill"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount; ?></span></a>
+                        <a href="index.php" class="list-group-item list-group-item-action active main-color-bg" aria-current="true"><i class="bi bi-person-circle"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount; ?></span></a>
                     </div>
                     <!--list-group-->
                     <br>
@@ -144,7 +144,7 @@ if (isset($_POST['search'])) {
                         <div class="card-header main-color-bg">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <h5>Visão Geral | Usuários <i class="bi bi-people-fill"></i></h5>
+                                    <h5>Visão Geral | Usuários <i class="bi bi-person-circle"></i></h5>
                                 </div>
                                 <!--col-md-8-->
                                 <div class="col-md-3">

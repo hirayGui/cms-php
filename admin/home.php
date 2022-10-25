@@ -99,11 +99,11 @@ $lastUsers = $user->listLastUsers();
                         </a>
                         <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#site" data-bs-parent="#menu"><i class="bi bi-window-fullscreen"></i> Site</a>
                         <div class="sublinks collapse" id="site">
-                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-file-person-fill"></i> Clientes <span class="badge text-bg-secondary"><?php echo $clientsCount ?></span></a>
+                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-people-fill"></i> Clientes <span class="badge text-bg-secondary"><?php echo $clientsCount ?></span></a>
                             <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-briefcase-fill"></i> Equipe</a>
                         </div>
                         <a href="posts/index.php" class="list-group-item list-group-item-action"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $postsCount ?></span></a>
-                        <a href="users/index.php" class="list-group-item list-group-item-action"><i class="bi bi-people-fill"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
+                        <a href="users/index.php" class="list-group-item list-group-item-action"><i class="bi bi-person-circle"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
                     </div>
                     <!--list-group-->
                     <br>
@@ -145,7 +145,7 @@ $lastUsers = $user->listLastUsers();
                                 <div class="col-12 col-md-3 ">
                                     <div class="card dash-box">
                                         <div class="card-body">
-                                            <h2><i class="bi bi-people-fill"></i> <?php echo $usersCount ?> </h2>
+                                            <h2><i class="bi bi-person-circle"></i> <?php echo $usersCount ?> </h2>
                                             <h4>Usuários</h4>
                                         </div>
                                     </div>
@@ -167,8 +167,8 @@ $lastUsers = $user->listLastUsers();
                                 <div class="col-12 col-md-3">
                                     <div class="card dash-box">
                                         <div class="card-body">
-                                            <h2><i class="bi bi-file-earmark-fill"></i> 3 </h2>
-                                            <h4>Páginas</h4>
+                                            <h2><i class="bi bi-people-fill"></i> <?php echo $clientsCount ?> </h2>
+                                            <h4>Clientes</h4>
                                         </div>
                                     </div>
                                     <!--card dash-box-->
@@ -178,8 +178,8 @@ $lastUsers = $user->listLastUsers();
                                 <div class="col-12 col-md-3">
                                     <div class="card dash-box">
                                         <div class="card-body">
-                                            <h2><i class="bi bi-bar-chart-fill"></i> 3K </h2>
-                                            <h4>Visitantes</h4>
+                                            <h2><i class="bi bi-briefcase-fill"></i> 0 </h2>
+                                            <h4>Equipe</h4>
                                         </div>
                                     </div>
                                     <!--card dash-box-->
