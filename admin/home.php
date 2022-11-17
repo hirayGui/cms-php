@@ -99,8 +99,8 @@ $lastUsers = $user->listLastUsers();
                         </a>
                         <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#site" data-bs-parent="#menu"><i class="bi bi-window-fullscreen"></i> Site</a>
                         <div class="sublinks collapse" id="site">
-                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-people-fill"></i> Clientes <span class="badge text-bg-secondary"><?php echo $clientsCount ?></span></a>
-                            <a href="#" class="list-group-item small list-group-item-action"><i class="bi bi-briefcase-fill"></i> Equipe</a>
+                            <a href="../clients/index.php" class="list-group-item small list-group-item-action"><i class="bi bi-people-fill"></i> Clientes <span class="badge text-bg-secondary"><?php echo $clientsCount ?></span></a>
+                            <a href="../workers/index.php" class="list-group-item small list-group-item-action"><i class="bi bi-briefcase-fill"></i> Equipe</a>
                         </div>
                         <a href="posts/index.php" class="list-group-item list-group-item-action"><i class="bi bi-newspaper"></i> Posts <span class="badge text-bg-secondary"><?php echo $postsCount ?></span></a>
                         <a href="users/index.php" class="list-group-item list-group-item-action"><i class="bi bi-person-circle"></i> Usuários <span class="badge text-bg-secondary"><?php echo $usersCount ?></span></a>
@@ -237,7 +237,7 @@ $lastUsers = $user->listLastUsers();
     <!--main-->
 
     <!--Footer-->
-    <footer id="footer" class="fixed-bottom footer py-3">
+    <footer id="footer" class="absolute-bottom footer py-3">
         <p id="copyright">Business Company &copy;
             <!--Script gets current year-->
             <script>
